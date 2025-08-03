@@ -26,12 +26,21 @@ def check_requirements(requirements_file="requirements.txt"):
                 importlib.metadata.version(pkg_name)
             except importlib.metadata.PackageNotFoundError:
                 print(f"Missing package: {pkg_name}")
-                return 1
+                return True
 
-        return 0
+        return False
     except Exception as e:
-        print(f"Error checking requirements: {e}")
-        return 1
+        print(f"Error checking dependencies: {e}")
+        should_continue = input("Continue anyway? [E]xit or [c]ontinue");
+        if (should_continue.lower() == "c"):
+            return True
+        else: sys.exit(1)
+
+def in_venv():
+    return (
+        hasattr(sys, "real_prefix") or
+        (hasattr(sys, "base_prefix") and sys.base_prefix != sys.prefix)
+    )
 
 def create_venv(venv_path="venv"):
     if not os.path.isdir(venv_path):

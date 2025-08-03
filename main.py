@@ -1,19 +1,13 @@
-import subprocess
-import sys
+import time
+import install_packages
 
-from util import check_requirements, install_requirements, create_venv, cls
+install_packages.init()
 
-print("Checking dependencies...")
+from simple_term_menu import TerminalMenu
+from utils import tprint, tinput
+from termcolor import colored, cprint
 
-install_required = check_requirements()
-
-if (install_required == 1):
-    print("Missing packages, creating venv...")
-    python_in_venv = create_venv()
-    print("Installing required dependencies...")
-    install_requirements(python_in_venv)
-    print("Re-running script inside virtual environment...\n")
-    subprocess.check_call([python_in_venv, *sys.argv])
-    sys.exit(0)  # Prevent original script from continuing
-
-cls();
+cprint("""
+~~ random shit~~
+    """, "light_red")
+# ┛┗┌┐┘└│─┏┓┃━
