@@ -6,7 +6,6 @@ from import_utils import check_requirements, install_requirements, create_venv, 
 
 def init():
     if (not in_venv()):
-        print("Creating virtual environment...")
         python_in_venv = create_venv()
 
         print("Entering virtual environment...\n")

@@ -1,2 +1,4 @@
-simple-term-menu
+cutie
 termcolor
+cursor
+blessed
