@@ -2,3 +2,4 @@ cutie
 termcolor
 cursor
 blessed
+simpleaudio

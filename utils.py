@@ -10,14 +10,23 @@ from blessed import Terminal
 
 term = Terminal()
 
-def tprint(txt, clr=None, spd=0.05):
+def flush_input():
+    try:
+        import msvcrt
+        while msvcrt.kbhit():
+            msvcrt.getch()
+    except ImportError:
+        import sys, termios
+        termios.tcflush(sys.stdin, termios.TCIOFLUSH)
+
+def tprint(txt, clr=None, spd=0.02):
     for x in txt:
         print(colored(x, no_color=True if clr == None else False, color=clr if clr != None else None), end='')
         sys.stdout.flush()
         sleep(spd)
     print()
 
-def tinput(txt, clr=None, spd=0.05):
+def tinput(txt, clr=None, spd=0.02):
     for x in txt:
         print(colored(x, no_color=True if clr == None else False, color=clr if clr != None else None), end='')
         sys.stdout.flush()
@@ -103,7 +112,11 @@ def draw_box(
     return "\n".join([top] + content + [bottom])
 
 
-def dialogue(
+def cls():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def show_dialogue(
     text,
     width=30,
     height=5,
@@ -112,7 +125,8 @@ def dialogue(
     padding=1,
     title=None,
     color=None,
-    speed=0.01
+    speed=0.01,
+    wait_for_input=True,
 ):
     cursor.hide()
 
@@ -120,7 +134,7 @@ def dialogue(
         sys.stdout.write(f"\033[{row};{col}H")  # move to row, col
         for char in line:
             print(colored(char, color) if color else char, end='', flush=True)
-            sleep(speed)
+            sleep(speed * 7 if char == '.' or char == '!' or char == '?' else speed * 5 if char == ',' else speed)
         print("\033[0m", end='', flush=True)  # reset color
 
     if isinstance(text, str):
@@ -207,9 +221,11 @@ def dialogue(
     sys.stdout.write(f"\033[{final_row};1H")
     sys.stdout.flush()
     
-    with term.cbreak():
-        term.inkey()
+    flush_input()
+    
+    if (wait_for_input):
+        with term.cbreak():
+            term.inkey()
         
     print()
-    
     cursor.show()

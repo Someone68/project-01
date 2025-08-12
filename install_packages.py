@@ -1,8 +1,15 @@
 import subprocess
 import sys
 import time
+import os
 
-from import_utils import check_requirements, install_requirements, create_venv, cls, in_venv
+from import_utils import check_requirements, install_requirements, create_venv, in_venv
+
+
+def cls():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
 
 def init():
     if (not in_venv()):

@@ -4,9 +4,6 @@ import re
 import subprocess
 import importlib.metadata
 
-def cls():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
 def parse_requirement(req_line):
     # Parse "package[extra]==version", "package>=version", etc.
     match = re.match(r"([a-zA-Z0-9_\-\.]+)", req_line)
@@ -31,6 +28,7 @@ def check_requirements(requirements_file="requirements.txt"):
         return False
     except Exception as e:
         print(f"Error checking dependencies: {e}")
+        
         should_continue = input("Continue anyway? [E]xit or [c]ontinue");
         if (should_continue.lower() == "c"):
             return True
