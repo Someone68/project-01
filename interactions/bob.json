@@ -1,0 +1,145 @@
+{
+  "default_npc": "Bob",
+  "actions": [
+    {
+      "type": "select_menu",
+      "title": "Choose your destiny",
+      "color": "yellow",
+      "typeout": true,
+      "repeat": true,
+      "options_to_stop": 1,
+      "finish_action": {
+        "type": "talk",
+        "text": "Well done, {player}! You have completed the menu."
+      },
+      "options": [
+        {
+          "name": "Greet NPC",
+          "type": "option",
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false,
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk",
+                "npc": "bob",
+                "text": "Hello there, {player}!"
+              },
+              {
+                "type": "run_code",
+                "code": "print('This is custom code running!')"
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "add",
+                "amount": 10
+              }
+            ]
+          }
+        },
+        {
+          "name": "Show Dialogue",
+          "type": "option",
+          "one_time": false,
+          "end_menu": false,
+          "action": {
+            "type": "show_dialogue",
+            "text": "This is a dialogue box not tied to an NPC.",
+            "title": "Narrator",
+            "color": "cyan"
+          }
+        },
+        {
+          "name": "Memory Test",
+          "type": "option",
+          "one_time": false,
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "set_memory",
+                "npc": "bob",
+                "memory": {
+                  "quest": "started"
+                }
+              },
+              {
+                "type": "condition",
+                "condition": {
+                  "type": "memory_check",
+                  "key": "quest",
+                  "value": "started"
+                },
+                "action": {
+                  "type": "talk",
+                  "text": "{npc:bob} remembers you!"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "Flag Test",
+          "type": "option",
+          "one_time": false,
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "set_flag",
+                "name": "tutorial_complete",
+                "value": true
+              },
+              {
+                "type": "condition",
+                "condition": {
+                  "type": "player_flag",
+                  "flag": "tutorial_complete",
+                  "value": true
+                },
+                "action": {
+                  "type": "talk",
+                  "text": "Flag check passed!"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "Boolean Condition",
+          "type": "option",
+          "one_time": false,
+          "action": {
+            "type": "condition",
+            "condition": {
+              "type": "boolean",
+              "condition": "player.karma > 5"
+            },
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "talk",
+                  "text": "Your health is healthy!"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Show Text Action",
+          "type": "option",
+          "action": {
+            "type": "show_text",
+            "text": "This is just plain text shown to the player.",
+            "color": "green",
+            "typeout": true
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,26 +1,32 @@
-import simpleaudio
+import json
+import re
+
+from termcolor import cprint
 from utils import *
 
-# load sounds
-talking_sounds = [
-  simpleaudio.WaveObject.from_wave_file("assets/talkingsound_1.wav"),
-  simpleaudio.WaveObject.from_wave_file("assets/talkingsound_2.wav"),
-  simpleaudio.WaveObject.from_wave_file("assets/talkingsound_3.wav"),
-  simpleaudio.WaveObject.from_wave_file("assets/talkingsound_4.wav"),
-  simpleaudio.WaveObject.from_wave_file("assets/talkingsound_5.wav"),
-]
+class Interaction:
+  def __init__(self, npc, interaction):
+    self.npc = npc
+    self.interaction = interaction
+  
+  def play_interaction(self):
+    pass
 
 class Npc:
-  def __init__(self, name, defname = None, talking_sound = None, color = "white"):
+  def __init__(self, name, defname = None, color = "white"):
     self.name = name
     if (not defname): self.defname = name
     else: self.defname = defname
     self.memory = {}
     self.name_unlocked = False
-    self.talking_sound = talking_sound
     self.color = color
+  
+  def unlock_name(self):
+    self.name_unlocked = True
+  
+  def get_name(self):
+    return self.name if self.name_unlocked else self.defname
 
-    
   def talk(self, text, wait_for_input = True):
     width=30
     height=5
@@ -36,7 +42,6 @@ class Npc:
       sys.stdout.write(f"\033[{row};{col}H")  # move to row, col
       for char in line:
           print(colored(char, color) if color else char, end='', flush=True)
-          talking_sounds[self.talking_sound].play()
           sleep(speed * 7 if char == '.' or char == '!' or char == '?' else speed * 5 if char == ',' else speed)
       print("\033[0m", end='', flush=True)  # reset color
 
@@ -133,6 +138,229 @@ class Npc:
     print()
     cursor.show()
 
-people = {
-  "ms_finessa" : Npc("Ms. Finessa", "Teacher", 0, "light_yellow")
-}
+class NpcRegistry:
+  def __init__(self):
+    self._npcs = {}
+  
+  def add(self, npc):
+    self._npcs[npc.name.lower()] = npc
+    setattr(self, npc.name.lower(), npc)
+  
+  def get(self, name):
+    return self._npcs.get(name.lower())
+
+NPC = NpcRegistry()
+#NPC.add(Npc("Ms. Finessa", "Teacher", 0, "light_yellow"))
+#NPC.add(Npc("FJock", "Tuff-Looking Kid", 0, "light_yellow"))
+NPC.add(Npc("Bob", "Bobby", "yellow"))
+
+
+class Interaction:
+    def __init__(self, filepath, npc_registry, player):
+        self.filepath = filepath
+        self.npc_registry = npc_registry
+        self.player = player
+        self.data = None
+        self.default_npc = None
+
+    def load(self):
+        with open(self.filepath, "r", encoding="utf-8") as f:
+            self.data = json.load(f)
+        # Store the default NPC object (if exists)
+        self.default_npc = self.npc_registry.get(self.data.get("default_npc"))
+
+    def play(self):
+        if not self.data:
+            raise ValueError("Interaction not loaded. Call load() first.")
+        for action in self.data.get("actions", []):
+            self.run_action(action)
+
+    def format_text(self, text):
+        if not isinstance(text, str):
+            return text
+
+        def replace_placeholder(match):
+            tag = match.group(1)
+            if tag == "player":
+                return self.player.name
+            elif tag.startswith("npc:"):
+                npc_name = tag.split(":", 1)[1]
+                npc = self.npc_registry.get(npc_name)
+                return npc.get_name() if npc else f"[Unknown NPC:{npc_name}]"
+            return match.group(0)
+
+        return re.sub(r"\{([^}]+)\}", replace_placeholder, text)
+
+    def check_condition(self, cond):
+        ctype = cond["type"]
+        if ctype == "memory_check":
+            npc = self.npc_registry.get(cond.get("npc")) if cond.get("npc") else self.default_npc
+            key = cond["key"]
+            expected = cond.get("value", None)
+            if expected is None:
+                return key in npc.memory
+            return npc.memory.get(key) == expected
+
+        elif ctype == "player_flag":
+            flag = cond["flag"]
+            expected = cond.get("value", None)
+            if expected is None:
+                return flag in self.player.flags
+            return self.player.flags.get(flag) == expected
+
+        elif ctype == "boolean":
+            context = {
+                "player": self.player,
+                "npc": self.default_npc,
+                "npc_registry": NPC,
+                # add other safe globals here if needed
+            }
+            return bool(eval(cond["condition"], {}, context))
+
+        else:
+            raise ValueError(f"Unknown condition type: {ctype}")
+    
+    def run_action(self, action):
+        action_type = action.get("type")
+        
+        def cls_fancy():
+          cls()
+          cprint(f"KARMA: {self.player.karma} / 100", "light_red", attrs=["bold"])
+          cprint(f"POPULARITY: {self.player.popularity} / 100", "light_blue", attrs=["bold"])
+        
+        if action_type == "talk":
+            npc = self.npc_registry.get(action.get("npc")) if action.get("npc") else self.default_npc
+            npc.talk(self.format_text(action["text"]), action.get("wait_for_input", True))
+
+        elif action_type == "show_dialogue":
+            show_dialogue(
+                self.format_text(action["text"]),
+                title=self.format_text(action.get("title")),
+                color=action.get("color"),
+                wait_for_input=action.get("wait_for_input", True)
+            )
+
+        elif action_type == "show_text":
+            text = self.format_text(action["text"])
+            color = action.get("color")
+            typeout = action.get("typeout", True)
+            if typeout:
+                tprint(text, color)
+            else:
+                cprint(text, color)
+
+        elif action_type == "select_menu":
+            repeat = action.get("repeat", False)
+            options_to_stop = action.get("options_to_stop", 0)
+            options = action["options"]
+            stop_finish_code = False
+            menu_title = action.get("title")
+            menu_color = action.get("color")
+            menu_typeout = action.get("typeout", True)
+
+            while True:
+                if len(options) <= 0:
+                    break
+
+                # Show menu title (optional)
+                if menu_title:
+                    if menu_typeout:
+                        tprint(menu_title, menu_color)
+                    else:
+                        cprint(menu_title, menu_color)
+
+                # Build the options list for your select_menu function
+                option_labels = [self.format_text(opt["name"]) for opt in options]
+
+                # Call your custom select menu
+                idx = select_menu(option_labels)
+                cls_fancy()
+
+                chosen = options[idx]
+                self.run_action(chosen["action"])
+
+                if chosen.get("stop_finish_code") is True:
+                    stop_finish_code = True
+                elif chosen.get("stop_finish_code") is False:
+                    stop_finish_code = False
+
+                if chosen.get("one_time", True):
+                    options.pop(idx)
+
+                if chosen.get("end_menu", False):
+                    break
+
+                if len(options) <= options_to_stop:
+                    break
+
+                if not repeat:
+                    break
+
+            if not stop_finish_code and "finish_action" in action:
+                self.run_action(action["finish_action"])
+
+
+        elif action_type == "multiple":
+            for sub in action["actions"]:
+                self.run_action(sub)
+
+        elif action_type == "run_code":
+            exec(action["code"], globals(), locals())
+
+        elif action_type == "change_stats":
+            stat = action["stat"]
+            op = action["operation"]
+            amt = action["amount"]
+            current = getattr(self.player, stat, None)
+            if current is None:
+                raise AttributeError(f"Player has no attribute '{stat}'")
+
+            if op == "add":
+                new_val = current + amt
+            elif op == "subtract":
+                new_val = current - amt
+            elif op == "multiply":
+                new_val = current * amt
+            elif op == "divide":
+                new_val = current / amt
+            else:
+                raise ValueError(f"Unknown operation '{op}'")
+
+            setattr(self.player, stat, new_val)
+            print(f"Player {stat} is now {new_val}")
+
+
+        elif action_type == "set_memory":
+            npc = self.npc_registry.get(action.get("npc")) if action.get("npc") else self.default_npc
+            for k, v in action["memory"].items():
+                npc.memory[k] = v
+
+        elif action_type == "remove_memory":
+            npc = self.npc_registry.get(action.get("npc")) if action.get("npc") else self.default_npc
+            for k in action["memories"]:
+                npc.memory.pop(k, None)
+
+        elif action_type == "set_flag":
+            self.player.flags[action["name"]] = action.get("value", True)
+
+        elif action_type == "condition":
+            cond = action["condition"]
+            if self.check_condition(cond):
+                self.run_action(action["action"])
+
+        elif action_type == "change_select_menu_option":
+            print("change_select_menu_option would modify menu here (requires context)")
+
+        elif action_type == "comment":
+            pass
+
+        else:
+            raise ValueError(f"Unknown interaction type: {action_type}")
+          
+        cls_fancy()
+
+    @staticmethod
+    def play_file(filepath, npc_registry, player):
+      inter = Interaction(filepath, npc_registry, player)
+      inter.load()
+      inter.play()

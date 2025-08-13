@@ -1,0 +1,122 @@
+{
+  "default_npc": "some_npc_object",
+  "actions": [
+    {
+      "type": "select_menu",
+      "repeat": true,
+      "comment": "opens a select menu that can display multiple options to be chosen. if repeat is true, then select menu will repeat until there is options_to_stop or less options available.",
+      "options_to_stop": 1,
+      "finish_action": {
+        "type": "talk",
+        "text": "if included this runs when the select menu finishes/stop repeating."
+      },
+      "options": [
+        {
+          "name": "option 1",
+          "type": "option",
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false,
+          "comment": "If one_time is true (default true if omitted), then option will be removed after selected. only useful if repeat is true in the select menu. If end_menu is true (defalt false if omitted), then select menu will be forced to finish after option is selected. only useful if repeat is true in the select menu. if stop_finish_code is set to true (default None if omitted) then after the select menu finishes/stop repeating or an option is chosen with repeat off, the finish_action code will not run. If stop_finish_code is set to false, it will garuntee that the finish_action runs when the select menu finishes. If stop_finish_code is set to None (default), it will not change anything.",
+          "action": {
+            "type": "mutliple",
+            "comment": "Actions are what actually do things. Current action types are: select_menu (creates a select menu), talk (makes an npc talk), change_select_menu_option, run_code, change_stats, set_memory, remove_memory, show_dialogue, set_flag, condition. they all behave uniquely. Select menus can be inside select menus. conditions inside of conditions. setting the multiple action type allows you to run multiple actions at once. all invalid options in actions will lead to an error, except for comment which does nothing.",
+            "actions": [
+              {
+                "type": "talk",
+                "text": "dialogue text",
+                "npc": "npc_object (optional)",
+                "wait_for_input": "boolean (true/false, default true)"
+              },
+              {
+                "type": "show_dialogue",
+                "text": "dialogue text",
+                "title": "dialogue title",
+                "color": "dialogue color",
+                "wait_for_input": "boolean (true/false, default true)"
+              },
+              {
+                "type": "change_select_menu_option",
+                "one_time": true,
+                "end_menu": false,
+                "stop_finish_code": false,
+                "comment": "changes values in the select menu option. doesn't do anything if run outside of a select menu option. all options are optional. if any option is omitted, that value will not change."
+              },
+              {
+                "type": "run_code",
+                "code": "print('hi')"
+              },
+              {
+                "type": "change_stats",
+                "stat": "health",
+                "operation": "add/subtract/multiply/divide",
+                "amount": 5
+              },
+              {
+                "type": "set_memory",
+                "npc": "npc_object (optional)",
+                "memory": {
+                  "memory_key": "memory_value",
+                  "memory_key1": "memory_value1"
+                }
+              },
+              {
+                "type": "remove_memory",
+                "npc": "npc_object (optional)",
+                "memories": ["list of memory keys to remove"]
+              },
+              {
+                "type": "set_flag",
+                "name": "flag name",
+                "value": true,
+                "comment": "sets a player flag to true or false, value is default true if omitted"
+              },
+              {
+                "type": "condition",
+                "condition": {
+                  "type": "memory_check",
+                  "key": "memory key",
+                  "value": "expected value (omit to test if memory exists instead)"
+                },
+                "action": {
+                  "type": "talk",
+                  "text": "dialogue text"
+                }
+              },
+              {
+                "type": "condition",
+                "condition": {
+                  "type": "player_flag",
+                  "flag": "flag name",
+                  "value": true,
+                  "comment": "expected value true/false (omit to test if memory exists instead)"
+                },
+                "action": {
+                  "type": "talk",
+                  "text": "dialogue text"
+                }
+              },
+              {
+                "type": "condition",
+                "condition": {
+                  "type": "boolean",
+                  "condition": "some boolean value condition",
+                  "comment": "maybe provide some default variables like player object and npc object to be used"
+                },
+                "action": {
+                  "type": "mutliple",
+                  "actions": [
+                    {
+                      "type": "talk",
+                      "text": "cool text"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

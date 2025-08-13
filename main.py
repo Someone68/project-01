@@ -14,7 +14,6 @@ from npcs import *
 in_interaction = False
 interaction_with = ""
 
-
 def cls_fancy():
   cls()
   if (player):
@@ -53,12 +52,14 @@ dialogue("* glub glub", title="???")
 
 cls()
 
+
 class Player:
   def __init__(self, name):
     self.name = name
     self.karma = 50
     self.popularity = 0
-    self.player_flags = {}
+    self.flags = {}
+  
 
 def set_name():
   namesel = tinput("* What is your name? (min 3 chars, max 7, no spaces) ", "light_yellow")
@@ -71,6 +72,8 @@ def set_name():
   return namesel
 
 player = Player(set_name().upper())
+
+Interaction.play_file("interactions/bob.json", NPC, player)
 
 dialogue(f"* After waking up and doing their daily routines...")
 
@@ -118,13 +121,13 @@ def first_interaction():
     
     match talkto:
       case 0:
-        people["ms_finessa"].talk(f"* Oh hello! A new student! I'm Ms. Finessa, your teacher.")
+        NPC.ms_finessa.talk(f"* Oh hello! A new student! I'm Ms. Finessa, your teacher.")
         names["ms_finessa"] = "Ms. Finessa"
         interaction_with = names["ms_finessa"]
         dialogue(f"* You introduce yourself to Ms. Finessa.")
-        dialogue(f"* Is there something that you need?", title=names["ms_finessa"], color="light_yellow")
+        NPC.ms_finessa.talk(f"* Is there something that you need?", title=names["ms_finessa"], color="light_yellow")
         print()
-        options1 = ["Tell her you don't want to be here", "Call her \"Mom\"", "\"I love school already!\"", "Flirt" "Leave awkwardly"]
+        options1 = ["Tell her you don't want to be here", "Call her \"Mom\"", "\"I love school already!\"", "Flirt", "Leave awkwardly"]
         while (len(options1) > 1):
           match select_menu(options1):
             case 0:
@@ -153,16 +156,14 @@ def first_interaction():
                   case 0:
                     cls_fancy()
                     dialogue("* My day? It's wonderful! I got to meet so many new students, like you!", title=names["ms_finessa"], color="light_yellow")
-                  case 1:
+                  case 1: 
                     cls_fancy()
-                    dialogue("* Who are you and what are you doing with our teacher?", title="FJock", color="light_red")
-                    dialogue("* What, are you sweet-talking the teacher into giving you test answers?", title="FJock", color="light_red")
-                    show_dialogue("* We were simply--", wait_for_input=False, title=names["ms_finessa"], color="light_yellow")
-                    cls_fancy()
-                    dialogue("* ")
-                    # options: yes (negative), who are you and why u interupt, 
+                    dialogue("* In my free time, I love to read books and play chess. What about you?")
+                    match select_menu(["Dumpster diving", "Playing sports", "Eating food", "Reading", "Working out"]):
+                      case 0:
+                        pass
             case _:
-              pass
+              break
 
 
 first_interaction()
