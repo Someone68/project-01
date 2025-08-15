@@ -1,0 +1,101 @@
+{
+  "default_npc": "Fjock",
+  "actions": [
+    {
+      "type": "talk",
+      "npc": "Fjock",
+      "text": "Who are you? Get away from me.",
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "Talk to {npc:Fjock}",
+      "color": "white",
+      "typeout": true,
+      "repeat": true,
+      "options_to_stop": 0,
+      "options": [
+        {
+          "name": "Tell him your name",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "npc": "Fjock",
+            "text": "Who cares? I sure don't. Get out of my sight, goldfish.",
+            "wait_for_input": true
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Talk about football",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "npc": "Fjock",
+            "text": "Oh, you're a fan of football?... Nevermind.",
+            "wait_for_input": true
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        }
+      ]
+    },
+    {
+      "type": "select_menu",
+      "title": "Talk to {npc:Fjock}",
+      "color": "white",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 0,
+      "options": [
+        {
+          "name": "Talk about football",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk",
+                "npc": "Fjock",
+                "text": "Man, you like the Fishy Fishners too? My favorite player is- nevermind.",
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "add",
+                "amount": 5
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Leave",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "Yeah, leave me alone."
+          }
+        }
+      ]
+    },
+    {
+      "type": "talk",
+      "npc": "Fjock",
+      "text": "What are you still talking to me for? Scram.",
+      "wait_for_input": true
+    },
+    {
+      "type": "change_select_menu_option",
+      "one_time": true,
+      "end_menu": true,
+      "stop_finish_code": true
+    }
+  ]
+}

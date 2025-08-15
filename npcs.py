@@ -17,15 +17,14 @@ class Npc:
     self.name = name
     if (not defname): self.defname = name
     else: self.defname = defname
-    self.memory = {}
-    self.name_unlocked = False
+    self.memory = { "name_unlocked" : False }
     self.color = color
   
   def unlock_name(self):
-    self.name_unlocked = True
+    self.memory["name_unlocked"] = True
   
   def get_name(self):
-    return self.name if self.name_unlocked else self.defname
+    return self.name if self.memory["name_unlocked"] else self.defname
 
   def talk(self, text, wait_for_input = True):
     width=30
@@ -33,7 +32,7 @@ class Npc:
     h_align="left"
     v_align="top"
     padding=1
-    title=self.name if self.name_unlocked else self.defname
+    title=self.name if self.memory["name_unlocked"] else self.defname
     color=self.color
     speed=0.01
     cursor.hide()
@@ -152,7 +151,7 @@ class NpcRegistry:
 NPC = NpcRegistry()
 #NPC.add(Npc("Ms. Finessa", "Teacher", 0, "light_yellow"))
 #NPC.add(Npc("FJock", "Tuff-Looking Kid", 0, "light_yellow"))
-NPC.add(Npc("Bob", "Bobby", "yellow"))
+NPC.add(Npc("FJock", "Tuff-Looking Kid", "yellow"))
 
 
 class Interaction:
@@ -231,6 +230,9 @@ class Interaction:
         if action_type == "talk":
             npc = self.npc_registry.get(action.get("npc")) if action.get("npc") else self.default_npc
             npc.talk(self.format_text(action["text"]), action.get("wait_for_input", True))
+        
+        if action_type == "play_interaction":
+            self.play_file("interactions/" + action.get("interaction"))
 
         elif action_type == "show_dialogue":
             show_dialogue(
@@ -253,11 +255,18 @@ class Interaction:
             repeat = action.get("repeat", False)
             options_to_stop = action.get("options_to_stop", 0)
             options = action["options"]
+            selected_index = action.get("selected_index", 0)
             stop_finish_code = False
             menu_title = action.get("title")
             menu_color = action.get("color")
             menu_typeout = action.get("typeout", True)
 
+            caption_indicies = []
+            for opt in options:
+                if (opt["type"] == "caption"):
+                    caption_indicies.push(options.index(opt))
+                    if (selected_index == options.index(opt)): selected_index += 1
+                    
             while True:
                 if len(options) <= 0:
                     break
@@ -265,32 +274,39 @@ class Interaction:
                 # Show menu title (optional)
                 if menu_title:
                     if menu_typeout:
-                        tprint(menu_title, menu_color)
+                        tprint(self.format_text(menu_title), menu_color)
                     else:
-                        cprint(menu_title, menu_color)
+                        cprint(self.format_text(menu_title), menu_color)
+                
+                    
 
                 # Build the options list for your select_menu function
                 option_labels = [self.format_text(opt["name"]) for opt in options]
 
                 # Call your custom select menu
-                idx = select_menu(option_labels)
+                idx = select_menu(option_labels, caption_indicies=option_labels)
                 cls_fancy()
 
                 chosen = options[idx]
                 self.run_action(chosen["action"])
 
                 if chosen.get("stop_finish_code") is True:
+                    # input("[DEBUG] STOPPING FINISH CODE ")
                     stop_finish_code = True
                 elif chosen.get("stop_finish_code") is False:
+                    # input("[DEBUG] USING FINISH CODE ")
                     stop_finish_code = False
 
                 if chosen.get("one_time", True):
+                    # input("[DEBUG] ONE TIME - POPPING ")
                     options.pop(idx)
 
                 if chosen.get("end_menu", False):
+                    # input("[DEBUG] ENDING MENU ")
                     break
 
                 if len(options) <= options_to_stop:
+                    # input("[DEBUG] NO MORE OPTIONS ENDING MENU")
                     break
 
                 if not repeat:
@@ -306,6 +322,13 @@ class Interaction:
 
         elif action_type == "run_code":
             exec(action["code"], globals(), locals())
+        
+        elif action_type == "wait_input":
+            flush_input()
+            if action.get("wait_for_input", True):
+                with term.cbreak():
+                    term.inkey()
+
 
         elif action_type == "change_stats":
             stat = action["stat"]
@@ -333,6 +356,11 @@ class Interaction:
         elif action_type == "set_memory":
             npc = self.npc_registry.get(action.get("npc")) if action.get("npc") else self.default_npc
             for k, v in action["memory"].items():
+                if (type(v) == str):
+                    if (v.lower() == "true"):
+                        v = True
+                    elif (v.lower() == "false"):
+                        v = False
                 npc.memory[k] = v
 
         elif action_type == "remove_memory":

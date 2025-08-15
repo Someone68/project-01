@@ -73,7 +73,7 @@ def set_name():
 
 player = Player(set_name().upper())
 
-Interaction.play_file("interactions/bob.json", NPC, player)
+Interaction.play_file("interactions/fjock.json", NPC, player)
 
 dialogue(f"* After waking up and doing their daily routines...")
 
