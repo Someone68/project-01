@@ -4,14 +4,6 @@ import re
 from termcolor import cprint
 from utils import *
 
-class Interaction:
-  def __init__(self, npc, interaction):
-    self.npc = npc
-    self.interaction = interaction
-  
-  def play_interaction(self):
-    pass
-
 class Npc:
   def __init__(self, name, defname = None, color = "white"):
     self.name = name
@@ -19,10 +11,10 @@ class Npc:
     else: self.defname = defname
     self.memory = { "name_unlocked" : False }
     self.color = color
-  
+
   def unlock_name(self):
     self.memory["name_unlocked"] = True
-  
+
   def get_name(self):
     return self.name if self.memory["name_unlocked"] else self.defname
 
@@ -37,7 +29,7 @@ class Npc:
     speed=0.01
     cursor.hide()
 
-    def tprint_line(line, row, col):   
+    def tprint_line(line, row, col):
       sys.stdout.write(f"\033[{row};{col}H")  # move to row, col
       for char in line:
           print(colored(char, color) if color else char, end='', flush=True)
@@ -127,24 +119,24 @@ class Npc:
     final_row = start_row + len(box_lines)
     sys.stdout.write(f"\033[{final_row};1H")
     sys.stdout.flush()
-    
+
     flush_input()
-    
+
     if (wait_for_input):
         with term.cbreak():
             term.inkey()
-        
+
     print()
     cursor.show()
 
 class NpcRegistry:
   def __init__(self):
     self._npcs = {}
-  
+
   def add(self, npc):
     self._npcs[npc.name.lower()] = npc
     setattr(self, npc.name.lower(), npc)
-  
+
   def get(self, name):
     return self._npcs.get(name.lower())
 
@@ -218,20 +210,20 @@ class Interaction:
 
         else:
             raise ValueError(f"Unknown condition type: {ctype}")
-    
+
     def run_action(self, action):
         action_type = action.get("type")
-        
+
         def cls_fancy():
           cls()
           cprint(f"KARMA: {self.player.karma} / 100", "light_red", attrs=["bold"])
           cprint(f"POPULARITY: {self.player.popularity} / 100", "light_blue", attrs=["bold"])
-        
+
         if action_type == "talk":
             npc = self.npc_registry.get(action.get("npc")) if action.get("npc") else self.default_npc
             npc.talk(self.format_text(action["text"]), action.get("wait_for_input", True))
-        
-        if action_type == "play_interaction":
+
+        elif action_type == "play_interaction":
             self.play_file("interactions/" + action.get("interaction"))
 
         elif action_type == "show_dialogue":
@@ -266,7 +258,7 @@ class Interaction:
                 if (opt["type"] == "caption"):
                     caption_indicies.push(options.index(opt))
                     if (selected_index == options.index(opt)): selected_index += 1
-                    
+
             while True:
                 if len(options) <= 0:
                     break
@@ -277,8 +269,8 @@ class Interaction:
                         tprint(self.format_text(menu_title), menu_color)
                     else:
                         cprint(self.format_text(menu_title), menu_color)
-                
-                    
+
+
 
                 # Build the options list for your select_menu function
                 option_labels = [self.format_text(opt["name"]) for opt in options]
@@ -322,7 +314,7 @@ class Interaction:
 
         elif action_type == "run_code":
             exec(action["code"], globals(), locals())
-        
+
         elif action_type == "wait_input":
             flush_input()
             if action.get("wait_for_input", True):
@@ -384,7 +376,7 @@ class Interaction:
 
         else:
             raise ValueError(f"Unknown interaction type: {action_type}")
-          
+
         cls_fancy()
 
     @staticmethod
