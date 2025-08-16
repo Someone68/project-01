@@ -1,0 +1,352 @@
+{
+  "default_npc": "Ms. Finessa",
+  "actions": [
+    {
+      "type": "talk",
+      "text": "Oh hello! A new student! I'm Ms. Finessa, your teacher.",
+      "wait_for_input": true
+    },
+    {
+      "type": "set_memory",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "talk",
+      "text": "May I ask your name?",
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Tell her your name",
+          "type": "option",
+          "action": {
+            "type": "comment",
+            "text": "Error!"
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": true
+        }
+      ]
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Hello, {player}! Welcome to Fishtopia Elementary.",
+        "Do you need something from me?"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "typeout": true,
+      "repeat": true,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Tell her you don't want to be here",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Oh, I'm sorry to hear that! I'm sure school is quite overwhelming.",
+                  "You might not love it at first, but I hope you will learn to enjoy it!"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "show_dialogue",
+                "text": "You feel embarrassed and leave.",
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "subtract",
+                "amount": 10
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": true,
+          "stop_finish_code": true
+        },
+        {
+          "name": "Call her \"Mom\"",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Oh, you must still think you're at home!",
+                  "I'm sorry, but we are at school, and I am not your mom."
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "set_memory",
+                "memory": {
+                  "player_called_mom": "true"
+                }
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "subtract",
+                "amount": 5
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Say that you love school already",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "That's wonderful! It's great that you are enjoying your time here!",
+                  "Make sure you save some of that energy for my class!"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "add",
+                "amount": 15
+              },
+              {
+                "type": "select_menu",
+                "typeout": true,
+                "repeat": true,
+                "options_to_stop": 0,
+                "options": [
+                  {
+                    "name": "Ask her about your day",
+                    "type": "option",
+                    "action": {
+                      "type": "talk_mult",
+                      "lines": [
+                        "My day? It's wonderful! I got to meet so many new students, like you!"
+                      ],
+                      "wait_for_input": true
+                    },
+                    "one_time": true,
+                    "end_menu": false,
+                    "stop_finish_code": false
+                  },
+                  {
+                    "name": "Ask her about her hobbies",
+                    "type": "option",
+                    "action": {
+                      "type": "multiple",
+                      "actions": [
+                        {
+                          "type": "talk",
+                          "text": "In my free time, I love to read books and play chess. What about you?",
+                          "wait_for_input": true
+                        },
+                        {
+                          "type": "select_menu",
+                          "typeout": true,
+                          "repeat": false,
+                          "options_to_stop": 1,
+                          "options": [
+                            {
+                              "name": "Dumpster diving",
+                              "type": "option",
+                              "action": {
+                                "type": "multiple",
+                                "actions": [
+                                  {
+                                    "type": "talk_mult",
+                                    "lines": [
+                                      "Oh! That's... interesting! What items do you find?",
+                                      "Huh? Trash? Um?? Sounds fun?????"
+                                    ],
+                                    "wait_for_input": true
+                                  },
+                                  {
+                                    "type": "set_memory",
+                                    "memory": {
+                                      "player_hobby": "dumpster_diving"
+                                    }
+                                  }
+                                ]
+                              },
+                              "one_time": false,
+                              "end_menu": false,
+                              "stop_finish_code": false
+                            },
+                            {
+                              "name": "Stealing candy from babies",
+                              "type": "option",
+                              "action": {
+                                "type": "multiple",
+                                "actions": [
+                                  {
+                                    "type": "talk_mult",
+                                    "lines": [
+                                      "Oh... that's... interesting? It's a joke, right?",
+                                      "(why do they look so serious???)"
+                                    ],
+                                    "wait_for_input": true
+                                  },
+                                  {
+                                    "type": "set_memory",
+                                    "memory": {
+                                      "player_hobby": "stealing_candy"
+                                    }
+                                  }
+                                ]
+                              },
+                              "one_time": false,
+                              "end_menu": false,
+                              "stop_finish_code": false
+                            },
+                            {
+                              "name": "Committing crimes",
+                              "type": "option",
+                              "action": {
+                                "type": "multiple",
+                                "actions": [
+                                  {
+                                    "type": "talk_mult",
+                                    "lines": [
+                                      "Oh... that's interesting...",
+                                      "Are you sure that's... legal?"
+                                    ],
+                                    "wait_for_input": true
+                                  },
+                                  {
+                                    "type": "set_memory",
+                                    "memory": {
+                                      "player_hobby": "doing_crimes"
+                                    }
+                                  }
+                                ]
+                              },
+                              "one_time": false,
+                              "end_menu": false,
+                              "stop_finish_code": false
+                            },
+                            {
+                              "name": "Microwaving forks",
+                              "type": "option",
+                              "action": {
+                                "type": "multiple",
+                                "actions": [
+                                  {
+                                    "type": "talk_mult",
+                                    "lines": [
+                                      "Oh... that's interesting...",
+                                      "Are you sure that's... safe?"
+                                    ],
+                                    "wait_for_input": true
+                                  },
+                                  {
+                                    "type": "set_memory",
+                                    "memory": {
+                                      "player_hobby": "microwave"
+                                    }
+                                  }
+                                ]
+                              },
+                              "one_time": true,
+                              "end_menu": true,
+                              "stop_finish_code": false
+                            }
+                          ],
+                          "finish_action": {
+                            "type": "talk",
+                            "text": "Anyways... gotta go!",
+                            "wait_for_input": true
+                          }
+                        }
+                      ]
+                    },
+                    "one_time": false,
+                    "end_menu": true,
+                    "stop_finish_code": false
+                  }
+                ]
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Flirt",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "set_memory",
+                "memory": {
+                  "player_flirted": "true"
+                }
+              },
+              {
+                "type": "talk_mult",
+                "lines": ["...", "Anyways, gotta go!"],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "subtract",
+                "amount": 30
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Leave awkwardly",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "show_dialogue",
+                "text": "You left without saying a word.",
+                "wait_for_input": true
+              },
+              {
+                "type": "show_dialogue",
+                "text": "{npc: Ms. Finessa} is confused.",
+                "wait_for_input": true
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": true,
+          "stop_finish_code": false
+        }
+      ]
+    }
+  ]
+}

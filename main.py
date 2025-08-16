@@ -73,7 +73,7 @@ def set_name():
 
 player = Player(set_name().upper())
 
-Interaction.play_file("interactions/fjock.json", NPC, player)
+Interaction.play_file("interactions/teacher_first.json", NPC, player)
 
 dialogue(f"* After waking up and doing their daily routines...")
 
@@ -88,13 +88,6 @@ dialogue(f"* After stumbling around in the halls...")
 ################
 # INTERACTIONS #
 ################
-
-names = {
-  "ms_finessa" : "Teacher", # Ms. Finessa
-  "fjock" : "Tuff-Looking Kid", # FJock
-  "ferd" : "Nerdy-Looking Kid", # Ferd
-  "fopular_girl" : "Girl with Makeup" # fopular girl
-}
 
 def first_interaction():
   tprint("Who do you want to talk to?", "light_yellow")

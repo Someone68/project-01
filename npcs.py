@@ -144,6 +144,7 @@ NPC = NpcRegistry()
 #NPC.add(Npc("Ms. Finessa", "Teacher", 0, "light_yellow"))
 #NPC.add(Npc("FJock", "Tuff-Looking Kid", 0, "light_yellow"))
 NPC.add(Npc("FJock", "Tuff-Looking Kid", "yellow"))
+NPC.add(Npc("Ms. Finessa", "Teacher", "magenta"))
 
 
 class Interaction:
@@ -242,6 +243,14 @@ class Interaction:
                 tprint(text, color)
             else:
                 cprint(text, color)
+        
+        elif action_type == "talk_mult":
+            texts = action["lines"]
+            npc = self.npc_registry.get(action.get("npc")) if action.get("npc") else self.default_npc
+            
+            for text in texts:
+                npc.talk(self.format_text(text), action.get("wait_for_input", True))
+                cls_fancy()
 
         elif action_type == "select_menu":
             repeat = action.get("repeat", False)

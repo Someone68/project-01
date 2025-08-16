@@ -68,6 +68,12 @@
                 "stat": "karma",
                 "operation": "add",
                 "amount": 5
+              },
+              {
+                "type": "talk",
+                "npc": "Fjock",
+                "text": "What are you still talking to me for? Scram.",
+                "wait_for_input": true
               }
             ]
           },
@@ -84,12 +90,6 @@
           }
         }
       ]
-    },
-    {
-      "type": "talk",
-      "npc": "Fjock",
-      "text": "What are you still talking to me for? Scram.",
-      "wait_for_input": true
     },
     {
       "type": "change_select_menu_option",
