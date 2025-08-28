@@ -145,6 +145,7 @@ NPC = NpcRegistry()
 #NPC.add(Npc("FJock", "Tuff-Looking Kid", 0, "light_yellow"))
 NPC.add(Npc("FJock", "Tuff-Looking Kid", "yellow"))
 NPC.add(Npc("Ms. Finessa", "Teacher", "magenta"))
+NPC.add(Npc("Ferd", "Nerdy-Looking Kid", "green"))
 
 
 class Interaction:

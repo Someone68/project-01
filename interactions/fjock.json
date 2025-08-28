@@ -70,6 +70,11 @@
                 "amount": 5
               },
               {
+                "type": "set_flag",
+                "flag": "fi_fjock_football",
+                "value": true
+              },
+              {
                 "type": "talk",
                 "npc": "Fjock",
                 "text": "What are you still talking to me for? Scram.",
@@ -96,6 +101,11 @@
       "one_time": true,
       "end_menu": true,
       "stop_finish_code": true
+    },
+    {
+      "type": "set_flag",
+      "flag": "fi_interacted_fjock",
+      "value": true
     }
   ]
 }

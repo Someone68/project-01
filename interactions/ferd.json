@@ -1,0 +1,172 @@
+{
+  "default_npc": "Ferd",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": ["O-oh! You chose to talk to me? "],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["M-my name is F-"],
+      "wait_for_input": false
+    },
+    {
+      "type": "talk",
+      "npc": "Fjock",
+      "text": "-NERRRRRDDD!",
+      "wait_for_input": true
+    },
+    {
+      "type": "set_memory",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "show_dialogue",
+      "text": "{player} assumes their name is Ferd.",
+      "color": "magenta",
+      "wait_for_input": true
+    },
+    {
+      "type": "talk",
+      "text": "That's Fjock. He bullies me all the time...",
+      "wait_for_input": true
+    },
+    {
+      "type": "set_memory",
+      "npc": "Fjock",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "select_menu",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Obviously",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": ["Wha- that hurt my feelings!"],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "subtract",
+                "amount": 10
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 5
+              },
+              {
+                "type": "set_flag",
+                "name": "bullied_ferd",
+                "value": true
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Bully him",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": ["Wha- my mother had n-no say in this matter!"],
+                "wait_for_input": true
+              },
+              {
+                "type": "set_flag",
+                "name": "bullied_ferd",
+                "value": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "subtract",
+                "amount": 10
+              },
+              {
+                "type": "show_dialogue",
+                "text": "Fjock has taken a liking to you...",
+                "color": "magenta",
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "npc": "Fjock",
+                "lines": ["Attaboy!"],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 5
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Help him with his homework",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk",
+                "text": "Y-you know it's the first day of school, r-right?",
+                "wait_for_input": true
+              },
+              {
+                "type": "show_dialogue",
+                "text": "you decide to tell him your name instead",
+                "color": "pink",
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "add",
+                "amount": 7
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 2
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    }
+  ]
+}

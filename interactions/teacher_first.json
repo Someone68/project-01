@@ -34,7 +34,11 @@
           "end_menu": true,
           "stop_finish_code": true
         }
-      ]
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
     },
     {
       "type": "talk_mult",
@@ -287,7 +291,17 @@
                     "end_menu": true,
                     "stop_finish_code": false
                   }
-                ]
+                ],
+                "finish_action": {
+                  "type": "multiple",
+                  "actions": [
+                    {
+                      "type": "set_flag",
+                      "name": "fi_asked_teacher",
+                      "value": true
+                    }
+                  ]
+                }
               }
             ]
           },
@@ -317,6 +331,11 @@
                 "stat": "karma",
                 "operation": "subtract",
                 "amount": 30
+              },
+              {
+                "type": "set_flag",
+                "name": "fi_flirted_teacher",
+                "value": true
               }
             ]
           },
@@ -339,6 +358,11 @@
                 "type": "show_dialogue",
                 "text": "{npc: Ms. Finessa} is confused.",
                 "wait_for_input": true
+              },
+              {
+                "type": "set_flag",
+                "name": "fi_left_teacher",
+                "value": true
               }
             ]
           },
@@ -346,7 +370,16 @@
           "end_menu": true,
           "stop_finish_code": false
         }
-      ]
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "set_flag",
+      "name": "fi_interacted_teacher",
+      "value": true
     }
   ]
 }

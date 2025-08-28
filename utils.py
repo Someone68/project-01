@@ -31,6 +31,7 @@ def tinput(txt, clr=None, spd=0.02):
         print(colored(x, no_color=True if clr == None else False, color=clr if clr != None else None), end='')
         sys.stdout.flush()
         sleep(spd)
+    flush_input()
     return input()
 
 def select_menu(options=["you", "forgot", "to put", "the actual", "options", "lmao"], caption_indicies=None, sel_index=0, desel_prefix="   ", sel_prefix=colored(" $ ", "magenta"), capt_prefix=" ", confirm_on_select=True):
