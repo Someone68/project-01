@@ -1,0 +1,10 @@
+{
+  "default_npc": "narrator",
+  "actions": [
+    {
+      "type": "talk",
+      "text": "test",
+      "wait_for_input": true
+    }
+  ]
+}

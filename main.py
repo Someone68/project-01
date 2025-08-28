@@ -1,8 +1,11 @@
 import os
 import time
+import glob
 
+from pprint import pprint
 from import_utils import in_venv
 import install_packages
+from game import *
 
 if (not in_venv()):
   print("This program uses external libraries that will be automatically installed. A virtual environment (venv) will be created in this folder, and packages will be installed! The program will then restart! This is because global Python package installations are becoming deprecated, and is even completely unsupported on Arch Linux! Some IDEs may NOT support this! You can run this in your command prompt / terminal if it doesn't work!")
@@ -14,7 +17,7 @@ else:
 
 install_packages.init()
 
-from utils import *
+from game import *
 from termcolor import colored, cprint
 import cursor
 import cutie
@@ -23,35 +26,15 @@ from npcs import *
 in_interaction = False
 interaction_with = ""
 
-def cls_fancy():
-  cls()
-  if (player):
-    cprint(f"KARMA: {player.karma} / 100", "light_red", attrs=["bold"])
-    cprint(f"POPULARITY: {player.popularity} / 100", "light_blue", attrs=["bold"])
-  if (in_interaction):
-    cprint(f"-- Interaction with {interaction_with} ---------", color="light_green")
-    
+DEV_MODE = True
 
-player = None
-
-def dialogue(text,
-    width=30,
-    height=5,
-    h_align="left",
-    v_align="top",
-    padding=1,
-    title=None,
-    color=None,
-    speed=0.01):
-  show_dialogue(text, width, height, h_align, v_align, padding, title, color, speed)
-  cls_fancy()
 
 dialogue("Somewhere in the mystical land of fishtopia...", color="magenta")
 
 cls()
 
 cprint("""
-      _\\_  
+      _\\_
    \\/  o \\
    //\\___=
       ''
@@ -61,27 +44,21 @@ dialogue("* glub glub", title="???")
 
 cls()
 
-
-class Player:
-  def __init__(self, name):
-    self.name = name
-    self.karma = 50
-    self.popularity = 0
-    self.flags = {}
-  
-
 def set_name():
-  namesel = tinput("* What is your name? (min 3 chars, max 7, no spaces) ", "light_yellow")
-  
-  while (len(namesel.strip()) < 3 or len(namesel.strip()) > 7 or ' ' in namesel): # check if input is invalid
-    cls()
-    cprint("invalid name", "red") # i had to write these comments because decaf cant read code
-    namesel = input(colored("* What is your name? (min 3 chars, max 7, no spaces) ", "light_yellow"))
-  
-  return namesel
+    namesel = tinput("* What is your name? (min 3 chars, max 7, no spaces) ", "light_yellow")
 
-player = Player(set_name().upper())
+    while (len(namesel.strip()) < 3 or len(namesel.strip()) > 7 or ' ' in namesel): # check if input is invalid
+        cls()
+        cprint("invalid name", "red") # i had to write these comments because decaf cant read code
+        namesel = input(colored("* What is your name? (min 3 chars, max 7, no spaces) ", "light_yellow"))
 
+    return namesel
+
+
+
+player.set_name(set_name().strip())
+
+if (DEV_MODE): dev_mode()
 
 dialogue(f"* After waking up and doing their daily routines...")
 
@@ -92,6 +69,8 @@ dialogue(f"* It's {player.name}'s first day at school.")
 dialogue(f"* But {player.name} isn't that popular. Let's go help them make friends!")
 
 dialogue(f"* After stumbling around in the halls...")
+
+
 
 ################
 # INTERACTIONS #
@@ -107,7 +86,7 @@ dialogue(f"* After stumbling around in the halls...")
 #   tprint("Who do you want to talk to?", "light_yellow")
 #   options = [names["ms_finessa"], names["fjock"], names["ferd"], names["fopular_girl"], "Awkardly walk away"]
 #   talkto = select_menu(options)
-  
+
 #   if (talkto == 4):
 #     dialogue(f"* {player.name} never made any friends.")
 #     player.popularity = -20
@@ -125,7 +104,7 @@ dialogue(f"* After stumbling around in the halls...")
 #     in_interaction = True
 #     interaction_with = person
 #     tprint(f"-- Interaction with {person} ---------", spd=0.01, clr="light_green")
-    
+
 #     match talkto:
 #       case 0:
 #         NPC.ms_finessa.talk(f"* Oh hello! A new student! I'm Ms. Finessa, your teacher.")
@@ -163,7 +142,7 @@ dialogue(f"* After stumbling around in the halls...")
 #                   case 0:
 #                     cls_fancy()
 #                     dialogue("* My day? It's wonderful! I got to meet so many new students, like you!", title=names["ms_finessa"], color="light_yellow")
-#                   case 1: 
+#                   case 1:
 #                     cls_fancy()
 #                     dialogue("* In my free time, I love to read books and play chess. What about you?")
 #                     match select_menu(["Dumpster diving", "Playing sports", "Eating food", "Reading", "Working out"]):
