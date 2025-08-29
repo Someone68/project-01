@@ -10,6 +10,7 @@ from pprint import pprint
 from time import sleep
 from termcolor import colored, cprint
 from blessed import Terminal
+from npcs import register_npcs, INTERNAL_NPC_NAMES
 term = Terminal()
 
 class Player:
@@ -25,8 +26,6 @@ class Player:
         self.name = name.upper()
 
 player = Player("error")
-
-INTERNAL_NPC_NAMES = ["narrator"]
 
 class Npc:
   def __init__(self, name, defname = None, color = "white"):
@@ -137,12 +136,16 @@ class Npc:
         row = start_row + 2 + top_pad + i
         col = 2
         tprint_line(line, row, col)
+    
+    # Calculate where the arrow really goes
+    total_box_height = len(box_lines)  # includes top + bottom border
+    arrow_row = start_row + total_box_height - 1  # second to last line
+    arrow_col = width - 2  # one before right border
 
-    # Print ▼ arrow on last content line, second to last column
-    arrow_row = start_row + 1 + top_pad + len(aligned_lines)
-    arrow_col = width - 2
+    # Place the arrow
     sys.stdout.write(f"\033[{arrow_row};{arrow_col}H")
     print("▼", end='', flush=True)
+    
     final_row = start_row + len(box_lines)
     sys.stdout.write(f"\033[{final_row};1H")
     sys.stdout.flush()
@@ -157,21 +160,18 @@ class Npc:
     cursor.show()
 
 class NpcRegistry:
-  def __init__(self):
-    self._npcs = {}
+    def __init__(self):
+        self._npcs = {}
 
-  def add(self, npc):
-    self._npcs[npc.name.lower()] = npc
-    setattr(self, npc.name.lower(), npc)
+    def add(self, npc):
+        self._npcs[npc.name.lower()] = npc
+        setattr(self, npc.name.lower(), npc)
 
-  def get(self, name):
-    return self._npcs.get(name.lower())
+    def get(self, name):
+        return self._npcs.get(name.lower())
 
 NPC = NpcRegistry()
-NPC.add(Npc("narrator", "", "white"))
-NPC.add(Npc("FJock", "Tuff-Looking Kid", "yellow"))
-NPC.add(Npc("Ms. Finessa", "Teacher", "magenta"))
-NPC.add(Npc("Ferd", "Nerdy-Looking Kid", "green"))
+register_npcs(NPC)
 
 
 def cls():
@@ -387,11 +387,15 @@ def show_dialogue(
         col = 2
         tprint_line(line, row, col)
 
-    # Print ▼ arrow on last content line, second to last column
-    arrow_row = start_row + 1 + top_pad + len(aligned_lines)
-    arrow_col = width - 2
+    # Calculate where the arrow really goes
+    total_box_height = len(box_lines)  # includes top + bottom border
+    arrow_row = start_row + total_box_height - 1  # second to last line
+    arrow_col = width - 2  # one before right border
+
+    # Place the arrow
     sys.stdout.write(f"\033[{arrow_row};{arrow_col}H")
     print("▼", end='', flush=True)
+    
     final_row = start_row + len(box_lines)
     sys.stdout.write(f"\033[{final_row};1H")
     sys.stdout.flush()
@@ -422,6 +426,7 @@ class Interaction:
         self.player = player
         self.data = None
         self.default_npc = None
+        self.menu_context_stack = []
 
     def load(self):
         with open(self.filepath, "r", encoding="utf-8") as f:
@@ -493,7 +498,7 @@ class Interaction:
             npc.talk(self.format_text(action["text"]), action.get("wait_for_input", True))
 
         elif action_type == "play_interaction":
-            self.play_file("interactions/" + action.get("interaction"))
+            self.play_file("interactions/" + action.get("interaction") + ".json")
 
         elif action_type == "show_dialogue":
             show_dialogue(
@@ -530,56 +535,58 @@ class Interaction:
             menu_color = action.get("color")
             menu_typeout = action.get("typeout", True)
 
-            caption_indicies = []
+            caption_indices = []
             for opt in options:
-                if (opt["type"] == "caption"):
-                    caption_indicies.push(options.index(opt))
-                    if (selected_index == options.index(opt)): selected_index += 1
+                if opt["type"] == "caption":
+                    caption_indices.append(options.index(opt))
+                    if selected_index == options.index(opt):
+                        selected_index += 1
+
+            # Push this menu context onto the stack
+            context = {
+                "options": options,
+                "selected_index": selected_index,
+                "caption_indices": caption_indices
+            }
+            self.menu_context_stack.append(context)
 
             while True:
                 if len(options) <= 0:
                     break
 
-                # Show menu title (optional)
+                # Print title if exists
                 if menu_title:
                     if menu_typeout:
                         tprint(self.format_text(menu_title), menu_color)
                     else:
                         cprint(self.format_text(menu_title), menu_color)
 
-
-
-                # Build the options list for your select_menu function
                 option_labels = [self.format_text(opt["name"]) for opt in options]
-
-                # Call your custom select menu
-                idx = select_menu(option_labels, caption_indicies=option_labels)
+                idx = select_menu(option_labels, caption_indicies=caption_indices)
                 cls_fancy()
 
                 chosen = options[idx]
                 self.run_action(chosen["action"])
 
                 if chosen.get("stop_finish_code") is True:
-                    # input("[DEBUG] STOPPING FINISH CODE ")
                     stop_finish_code = True
                 elif chosen.get("stop_finish_code") is False:
-                    # input("[DEBUG] USING FINISH CODE ")
                     stop_finish_code = False
 
                 if chosen.get("one_time", True):
-                    # input("[DEBUG] ONE TIME - POPPING ")
                     options.pop(idx)
 
                 if chosen.get("end_menu", False):
-                    # input("[DEBUG] ENDING MENU ")
                     break
 
                 if len(options) <= options_to_stop:
-                    # input("[DEBUG] NO MORE OPTIONS ENDING MENU")
                     break
 
                 if not repeat:
                     break
+
+            # Pop menu context when done
+            self.menu_context_stack.pop()
 
             if not stop_finish_code and "finish_action" in action:
                 self.run_action(action["finish_action"])
@@ -646,7 +653,40 @@ class Interaction:
                 self.run_action(action["action"])
 
         elif action_type == "change_select_menu_option":
-            print("change_select_menu_option would modify menu here (requires context)")
+            if not self.menu_context_stack:
+                print("No active select menu to modify!")
+                return
+
+            # Work with the current (top of stack) menu
+            context = self.menu_context_stack[-1]
+            options = context["options"]
+
+            # Add new option
+            if "add" in action:
+                new_opt = action["add"]
+                if "index" in action:
+                    idx = action["index"]
+                    options.insert(idx, new_opt)
+                else:
+                    options.append(new_opt)
+
+            # Remove by index
+            if "remove_index" in action:
+                idx = action["remove_index"]
+                if 0 <= idx < len(options):
+                    options.pop(idx)
+
+            # Remove by name
+            if "remove_name" in action:
+                name = action["remove_name"]
+                options[:] = [opt for opt in options if opt["name"] != name]
+
+            # Modify by index
+            if "modify_index" in action:
+                idx = action["modify_index"]
+                new_data = action.get("new_data", {})
+                if 0 <= idx < len(options):
+                    options[idx].update(new_data)
 
         elif action_type == "comment":
             pass
@@ -663,27 +703,33 @@ class Interaction:
       inter.play()
 
 def dev_mode():
-    cprint("DEV MODE", "yellow")
     to_continue = False
-
-    option = select_menu(["run interaction", "view player object", "edit stats", "continue", "quit"])
     cls_fancy()
+    cprint("DEV MODE", "yellow")
+    option = select_menu(["run interaction", "view player object", "edit stats", "continue", "quit"])
 
+    cls_fancy()
+    cprint("DEVELOPER MODE", "yellow")
+    cprint("select an option below: ", "yellow")
     match(option):
-        case 0:
+        case 0:   
+            cprint("RUN INTERACTION", "yellow")
             interactions_list = glob.glob("./interactions/*.json")
             interactions_list.append("cancel")
             menu = select_menu(interactions_list)
-            if (menu != "cancel"):
+            if (interactions_list[menu] != "cancel"):
                 Interaction.play_file(interactions_list[menu])
             input("interaction finished, press enter to continue...")
         case 1:
+            cprint("PLAYER STATS", "yellow")
             pprint(vars(player))
             input("enter to continue...")
         case 2:
+            cprint("EDIT STATS", "yellow")
             stat = select_menu(["flags", "karma", "popularity", "name", "cancel"])
             match(stat):
-                case 0:
+                case 0:   
+                    cprint("SET FLAG", "yellow")
                     to_set = input("flag to set: ")
                     set_value = input("flag value (true/false): ")
                     print(set_value.lower() == "true")
@@ -697,14 +743,17 @@ def dev_mode():
                     player.flags[to_set] = set_value
                     input("flag set. enter to continue")
                 case 1:
+                    cprint("SET STAT: KARMA", "yellow")
                     to_set = int(input("set value (int): "))
                     player.karma = to_set
                     input("karma set. enter to continue")
                 case 2:
+                    cprint("SET STAT: POPULARITY", "yellow")
                     to_set = int(input("set value (int): "))
                     player.popularity = to_set
                     input("popularity set. enter to continue")
                 case 3:
+                    cprint("SET STAT: NAME", "yellow")
                     to_set = input("set name (str): ")
                     player.name = to_set.upper()
                     input("name set. enter to continue")

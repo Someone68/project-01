@@ -141,7 +141,7 @@
               {
                 "type": "show_dialogue",
                 "text": "you decide to tell him your name instead",
-                "color": "pink",
+                "color": "magenta",
                 "wait_for_input": true
               },
               {

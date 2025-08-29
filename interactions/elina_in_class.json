@@ -1,0 +1,88 @@
+{
+  "default_npc": "elina",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": ["What do you want?"],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "typeout": true,
+      "repeat": true,
+      "options_to_stop": 0,
+      "options": [
+        {
+          "name": "Tell her to be quiet and let the teacher teach",
+          "type": "option",
+          "action": {
+            "type": "talk_mult",
+            "lines": [
+              "NERRRRDDD!!",
+              "You should hang out with Ferd.",
+              "I'm sure he'll... \"resonate\" with you."
+            ],
+            "wait_for_input": true
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Telll her the process of stealing candies from babies",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "Thanks, I'm sure that will be useful.",
+            "wait_for_input": true
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Tell her something embarrassing",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "condition",
+                "condition": {
+                  "type": "player_flag",
+                  "flag": "f1_elina",
+                  "value": true
+                },
+                "action": {
+                  "type": "talk_mult",
+                  "lines": [
+                    "You talked to me once in the halls...",
+                    "Why are you telling me your secrets???",
+                    "Now I can blackmail you, I guess."
+                  ],
+                  "wait_for_input": true
+                }
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Leave",
+          "type": "option",
+          "end_menu": true,
+          "action": {
+            "type": "talk",
+            "text": "Yeah, leave me alone."
+          }
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    }
+  ]
+}

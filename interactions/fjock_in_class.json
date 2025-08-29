@@ -1,0 +1,121 @@
+{
+  "default_npc": "narrator",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": ["{player} walks over to Ferd and Fjock."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Fjock",
+      "lines": [
+        "Ha I took your glasses!",
+        "What're you gonna do now, two eyes?"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Ferd",
+      "lines": ["What does that even mean? Give me my glasses back!"],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Fjock",
+      "lines": [
+        "Hey, {player}.",
+        "I'm just roughening up ferd.",
+        "What can I do for ya?"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "What do you do?",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Leave",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "npc": "Fjock",
+                "lines": ["Uhh, alrighty then."],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 1
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": true,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Bully Ferd",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "multiple",
+                "actions": [
+                  {
+                    "type": "talk_mult",
+                    "npc": "narrator",
+                    "lines": [
+                      "{player} starts taking things from Ferd's pockets.",
+                      "They found some change."
+                    ],
+                    "wait_for_input": true
+                  },
+                  {
+                    "type": "change_stats",
+                    "stat": "karma",
+                    "operation": "subtract",
+                    "amount": 15
+                  },
+                  {
+                    "type": "change_stats",
+                    "stat": "popularity",
+                    "operation": "add",
+                    "amount": 3
+                  }
+                ]
+              },
+              {
+                "type": "talk_mult",
+                "npc": "Fjock",
+                "lines": ["Haha! Yeah!"],
+                "wait_for_input": true
+              },
+              {
+                "type": "set_flag",
+                "name": "bullied_ferdclass",
+                "value": true
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": true,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    }
+  ]
+}

@@ -1,0 +1,397 @@
+{
+  "default_npc": "narrator",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": ["you decide to go to class."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Ms. Finessa",
+      "lines": [
+        "Hey class!",
+        "My name is Ms. Finessa spelled F-I-N-E-S-S-A.",
+        "Let's start off the year strong with some icebreakers!",
+        "To... break the ice!"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Ms. Finessa",
+      "lines": [
+        "Let's start off with myself,",
+        "I like reading, doing puzzles,"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "multiple",
+      "actions": [
+        {
+          "type": "talk",
+          "npc": "Ms. Finessa",
+          "text": "And I'm recently divo-",
+          "wait_for_input": false
+        },
+        {
+          "type": "talk_mult",
+          "npc": "Elina",
+          "lines": [
+            "Of course, we'll start with me.",
+            "My name is Elina",
+            "and I am the most popular one in school."
+          ],
+          "wait_for_input": true
+        },
+        {
+          "type": "talk_mult",
+          "npc": "narrator",
+          "lines": ["everyone stares at you", "waiting for an introduction."],
+          "wait_for_input": true
+        }
+      ]
+    },
+    {
+      "type": "select_menu",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Introduce yourself",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "add",
+                "amount": 5
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 15
+              },
+              {
+                "type": "talk_mult",
+                "npc": "Ms. Finessa",
+                "lines": ["{player}, huh? What a nice name!"],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "npc": "Elina",
+                "lines": ["Well I think it's stupid."],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "subtract",
+                "amount": 1
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Say you like commiting crimes and then introduce yourself",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "subtract",
+                "amount": 5
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 3
+              },
+              {
+                "type": "talk_mult",
+                "npc": "Fjock",
+                "lines": ["Yeah! Am I right guys?"],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "npc": "narrator",
+                "lines": [
+                  "the whole class goes silent.",
+                  "Ms. Finessa bursts out laughing."
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "multiple",
+                "actions": [
+                  {
+                    "type": "talk_mult",
+                    "npc": "Ms. Finessa",
+                    "lines": [
+                      "HAHAHAHA! I'm sorry I'm sorry,",
+                      "It's just such a good joke!"
+                    ],
+                    "wait_for_input": true
+                  },
+                  {
+                    "type": "select_menu",
+                    "title": "...",
+                    "color": "red",
+                    "typeout": true,
+                    "repeat": false,
+                    "options_to_stop": 1,
+                    "options": [
+                      {
+                        "name": "say it wasn't a joke",
+                        "type": "option",
+                        "action": {
+                          "type": "multiple",
+                          "actions": [
+                            {
+                              "type": "talk",
+                              "npc": "narrator",
+                              "text": "Ms. Finessa stops laughing instantly.",
+                              "wait_for_input": true
+                            },
+                            {
+                              "type": "change_stats",
+                              "stat": "karma",
+                              "operation": "subtract",
+                              "amount": 5
+                            },
+                            {
+                              "type": "change_stats",
+                              "stat": "popularity",
+                              "operation": "add",
+                              "amount": 3
+                            },
+                            {
+                              "type": "talk_mult",
+                              "npc": "Fjock",
+                              "lines": ["Yes! I knew it!"],
+                              "wait_for_input": true
+                            },
+                            {
+                              "type": "talk_mult",
+                              "npc": "narrator",
+                              "lines": ["The whole class stares at Fjock."],
+                              "wait_for_input": true
+                            }
+                          ]
+                        },
+                        "one_time": false,
+                        "end_menu": false,
+                        "stop_finish_code": false
+                      },
+                      {
+                        "name": "Laugh with her",
+                        "type": "option",
+                        "action": {
+                          "type": "multiple",
+                          "actions": [
+                            {
+                              "type": "talk_mult",
+                              "npc": "narrator",
+                              "lines": ["Fjock frowns."],
+                              "wait_for_input": true
+                            },
+                            {
+                              "type": "change_stats",
+                              "stat": "karma",
+                              "operation": "add",
+                              "amount": 2
+                            },
+                            {
+                              "type": "change_stats",
+                              "stat": "popularity",
+                              "operation": "add",
+                              "amount": 5
+                            }
+                          ]
+                        },
+                        "one_time": false,
+                        "end_menu": false,
+                        "stop_finish_code": false
+                      }
+                    ],
+                    "finish_action": {
+                      "type": "comment",
+                      "text": "(menu finished)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Ms. Finessa",
+      "lines": ["Well... That was fun!", "What about you, big-guy?"],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Fjock",
+      "lines": ["My name is Fjock,"],
+      "wait_for_input": true
+    },
+    {
+      "type": "set_memory",
+      "npc": "Fjock",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Fjock",
+      "lines": ["I think Ferd's a nerd.", "Uhh.", "I like...", "football."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Ferd",
+      "lines": ["My name is NOT F-"],
+      "wait_for_input": false
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Fjock",
+      "lines": ["NERRRRD!"],
+      "wait_for_input": true
+    },
+    {
+      "type": "set_memory",
+      "npc": "ferd",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "set_memory",
+      "npc": "Fjock",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "set_memory",
+      "npc": "Elina",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "After many minutes of bickering, you decide to look around.",
+        "{npc:Ms. Finessa} is trying to calm everyone down.",
+        "Who does {player} talk to?"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "Who do you want to talk to",
+      "typeout": false,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Fjock",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "fjock_in_class"
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Ferd",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "ferd_in_class"
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Elina",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "elina_in_class"
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Ms. Finessa",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "finessa_in_class"
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "When the class finally settles down...",
+        "It's already lunch time."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Ms. Finessa",
+      "lines": [
+        "You're all... excused now.",
+        "Next time we won't do the icebreaker..."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "play_interaction",
+      "interaction": "story_2"
+    }
+  ]
+}

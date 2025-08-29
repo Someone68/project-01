@@ -1,0 +1,107 @@
+{
+  "default_npc": "Ms. Finessa",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "npc": "Ms. Finessa",
+      "lines": ["Class, uh... Fjock! Put that down!", "(what am I gonna do?)"],
+      "wait_for_input": true
+    },
+    {
+      "type": "multiple",
+      "actions": [
+        {
+          "type": "talk_mult",
+          "lines": [
+            "Oh, hello {player}! ",
+            "I'm just trying to keep the class together."
+          ],
+          "wait_for_input": true
+        },
+        {
+          "type": "select_menu",
+          "title": "...",
+          "color": "red",
+          "typeout": true,
+          "repeat": false,
+          "options_to_stop": 1,
+          "options": [
+            {
+              "name": "Say she's obviously failing",
+              "type": "option",
+              "action": {
+                "type": "multiple",
+                "actions": [
+                  {
+                    "type": "talk",
+                    "text": "Well that's... Reassuring.",
+                    "wait_for_input": true
+                  },
+                  {
+                    "type": "change_stats",
+                    "stat": "karma",
+                    "operation": "subtract",
+                    "amount": 5
+                  }
+                ]
+              },
+              "one_time": false,
+              "end_menu": false,
+              "stop_finish_code": false
+            },
+            {
+              "name": "Encourage her",
+              "type": "option",
+              "action": {
+                "type": "multiple",
+                "actions": [
+                  {
+                    "type": "talk_mult",
+                    "lines": [
+                      "Well, thanks for the enthusiasm but...",
+                      "Hey! Fjock! I swear if you throw that-"
+                    ],
+                    "wait_for_input": true
+                  },
+                  {
+                    "type": "talk_mult",
+                    "npc": "Fjock",
+                    "lines": ["Hahaha!"],
+                    "wait_for_input": true
+                  },
+                  {
+                    "type": "change_stats",
+                    "stat": "karma",
+                    "operation": "add",
+                    "amount": 5
+                  }
+                ]
+              },
+              "one_time": false,
+              "end_menu": false,
+              "stop_finish_code": false
+            }
+          ],
+          "finish_action": {
+            "type": "comment",
+            "text": "(menu finished)"
+          }
+        }
+      ]
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["Fjock! NO! I SAID NO!"],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "Fjock is brandishing a ruler like a weapon.",
+        "you decide to leave them be for now."
+      ],
+      "wait_for_input": true
+    }
+  ]
+}

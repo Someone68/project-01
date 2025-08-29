@@ -1,0 +1,38 @@
+{
+  "default_npc": "narrator",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": ["as the bell rang for lunch..."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Fjock",
+      "lines": [
+        "I'm not missing that mystery meat!",
+        "Thanks for the money Ferd!"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Ferd",
+      "lines": ["My names not-"],
+      "wait_for_input": false
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Elina",
+      "lines": [
+        "hey, {player} don't even think about sitting at my lunch table."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["{player} makes their way to the lunch room."],
+      "wait_for_input": true
+    }
+  ]
+}

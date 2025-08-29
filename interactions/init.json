@@ -1,0 +1,79 @@
+{
+  "default_npc": "narrator",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": ["{player} finds themselves surrounded by classmates."],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "Who will you talk to?",
+      "typeout": false,
+      "repeat": true,
+      "options_to_stop": 0,
+      "options": [
+        {
+          "name": "Tuff-Looking Kid",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "fjock"
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Teacher",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "teacher"
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Nerdy-Looking Kid",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "ferd"
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Popular Girl",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "elina"
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Go to class",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "play_interaction",
+                "interaction": "story_1"
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        }
+      ]
+    }
+  ]
+}

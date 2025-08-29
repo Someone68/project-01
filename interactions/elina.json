@@ -1,0 +1,220 @@
+{
+  "default_npc": "elina",
+  "actions": [
+    {
+      "type": "comment",
+      "text": "NAME IS ELINA she worries too much about their impressions"
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": ["You decide to talk to the popular-looking girl."],
+      "wait_for_input": true
+    },
+    {
+      "type": "multiple",
+      "actions": [
+        {
+          "type": "talk",
+          "text": "Who are you?",
+          "wait_for_input": true
+        },
+        {
+          "type": "select_menu",
+          "title": "Who are you?",
+          "typeout": false,
+          "repeat": true,
+          "options_to_stop": 1,
+          "options": [
+            {
+              "name": "Tell her you're new here",
+              "type": "option",
+              "action": {
+                "type": "talk_mult",
+                "lines": [
+                  "Oh, you're a new student? don't care, never will. ",
+                  "Don't even think about sitting at my table during lunch, seaweed-head."
+                ],
+                "wait_for_input": true
+              },
+              "one_time": false,
+              "end_menu": false,
+              "stop_finish_code": false
+            },
+            {
+              "name": "introduce yourself",
+              "type": "option",
+              "action": {
+                "type": "talk_mult",
+                "lines": [
+                  "Sorry, your name was never relevant to me.",
+                  "...",
+                  "{player}.",
+                  "My name's Elina."
+                ],
+                "wait_for_input": true
+              },
+              "one_time": false,
+              "end_menu": true,
+              "stop_finish_code": false
+            }
+          ],
+          "finish_action": {
+            "type": "comment",
+            "text": "(menu finished)"
+          }
+        },
+        {
+          "type": "set_memory",
+          "memory": {
+            "name_unlocked": "Elina"
+          }
+        }
+      ]
+    },
+    {
+      "type": "multiple",
+      "actions": [
+        {
+          "type": "talk_mult",
+          "lines": ["So, what brings you here {player}?"],
+          "wait_for_input": true
+        },
+        {
+          "type": "set_flag",
+          "name": "f1_elina",
+          "value": true
+        },
+        {
+          "type": "select_menu",
+          "title": "What brings you here?",
+          "color": "blue",
+          "typeout": false,
+          "repeat": false,
+          "options_to_stop": 1,
+          "options": [
+            {
+              "name": "School",
+              "type": "option",
+              "action": {
+                "type": "talk_mult",
+                "lines": ["Well, obviously. ", "Everyone here is."],
+                "wait_for_input": true
+              },
+              "one_time": false,
+              "end_menu": false,
+              "stop_finish_code": false
+            },
+            {
+              "name": "Football",
+              "type": "option",
+              "action": {
+                "type": "talk_mult",
+                "lines": [
+                  "Well, if you love football so much...",
+                  "...you should talk to Fjock.",
+                  "He's into that sorta thing."
+                ],
+                "wait_for_input": true
+              },
+              "one_time": true,
+              "end_menu": true,
+              "stop_finish_code": false
+            },
+            {
+              "name": "Messing around",
+              "type": "option",
+              "action": {
+                "type": "multiple",
+                "actions": [
+                  {
+                    "type": "talk_mult",
+                    "lines": [
+                      "Heh, I think you should be friends with Fjock.",
+                      "He's the mean one anyways."
+                    ],
+                    "wait_for_input": true
+                  },
+                  {
+                    "type": "condition",
+                    "condition": {
+                      "type": "player_flag",
+                      "flag": "fi_interacted_fjock",
+                      "value": true
+                    },
+                    "action": {
+                      "type": "multiple",
+                      "actions": [
+                        {
+                          "type": "condition",
+                          "condition": {
+                            "type": "player_flag",
+                            "flag": "fi_interacted_fjock",
+                            "value": true
+                          },
+                          "action": {
+                            "type": "multiple",
+                            "actions": [
+                              {
+                                "type": "talk_mult",
+                                "lines": [
+                                  "Actually...",
+                                  "I think I saw you talk to him.",
+                                  "You're lucky you didn't get beat up.",
+                                  "Guess he goes easy on new kids."
+                                ],
+                                "wait_for_input": true
+                              },
+                              {
+                                "type": "condition",
+                                "condition": {
+                                  "type": "player_flag",
+                                  "flag": "fi_fjock_football",
+                                  "value": true
+                                },
+                                "action": {
+                                  "type": "talk_mult",
+                                  "lines": [
+                                    "He enjoyed talking to you, actually.",
+                                    "But didn't want to talk to the new kid.",
+                                    "Eh, why should I care?",
+                                    "Good luck becoming friends with him."
+                                  ],
+                                  "wait_for_input": true
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "talk_mult",
+                    "lines": [],
+                    "wait_for_input": true
+                  }
+                ]
+              },
+              "one_time": true,
+              "end_menu": true,
+              "stop_finish_code": false
+            }
+          ],
+          "finish_action": {
+            "type": "comment",
+            "text": "(menu finished)"
+          }
+        },
+        {
+          "type": "talk_mult",
+          "lines": [
+            "Class is starting soon, so get out of my face.",
+            "...{player}."
+          ],
+          "wait_for_input": true
+        }
+      ]
+    }
+  ]
+}
