@@ -1,0 +1,63 @@
+{
+  "default_npc": "ms. finessa",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": [
+        "...{player}?",
+        "Why did you decide to sit with me?",
+        "You should sit with your classmates.",
+        "I'm no fun at all."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Sorry for what happened during class",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "Hello {player}!",
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Small talk",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "Hello {player}!",
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Sit in awkward silence and eat your lunch",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "Hello {player}!",
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    }
+  ]
+}

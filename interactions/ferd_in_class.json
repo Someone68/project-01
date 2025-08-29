@@ -1,0 +1,9 @@
+{
+  "default_npc": "ferd",
+  "actions": [
+    {
+      "type": "play_interaction",
+      "interaction": "fjock_in_class"
+    }
+  ]
+}

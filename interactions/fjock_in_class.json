@@ -10,7 +10,7 @@
       "type": "talk_mult",
       "npc": "Fjock",
       "lines": [
-        "Ha I took your glasses!",
+        "Ha! I took your glasses!",
         "What're you gonna do now, two eyes?"
       ],
       "wait_for_input": true
@@ -18,7 +18,7 @@
     {
       "type": "talk_mult",
       "npc": "Ferd",
-      "lines": ["What does that even mean? Give me my glasses back!"],
+      "lines": ["What does that even mean?", "Give me my glasses back!"],
       "wait_for_input": true
     },
     {
@@ -26,7 +26,7 @@
       "npc": "Fjock",
       "lines": [
         "Hey, {player}.",
-        "I'm just roughening up ferd.",
+        "I'm just roughening up Ferd.",
         "What can I do for ya?"
       ],
       "wait_for_input": true

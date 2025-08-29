@@ -39,9 +39,9 @@ if (DEV_MODE):
   else:
     print("continuing in developer mode, have fun!")
     sleep(3)
-  
+
   cls()
-  
+
 
 dialogue("Somewhere in the mystical land of fishtopia...", color="magenta")
 
