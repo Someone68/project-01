@@ -25,7 +25,7 @@
       "type": "talk_mult",
       "npc": "Elina",
       "lines": [
-        "hey, {player} don't even think about sitting at my lunch table."
+        "Hey, {player} don't even think about sitting at my lunch table."
       ],
       "wait_for_input": true
     },

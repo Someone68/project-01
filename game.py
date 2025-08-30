@@ -439,7 +439,7 @@ class Interaction:
             raise ValueError("Interaction not loaded. Call load() first.")
         for action in self.data.get("actions", []):
             self.run_action(action)
-
+    
     def format_text(self, text):
         if not isinstance(text, str):
             return text

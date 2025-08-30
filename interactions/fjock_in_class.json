@@ -63,36 +63,56 @@
           "stop_finish_code": false
         },
         {
+          "name": "Talk about football",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "...",
+                  "You play for the Swishy Swimmers?",
+                  "Yeah, they're pretty good, but not as good as my team.",
+                  "I play for the Shimmering Sharks.",
+                  "We are so much better than that stupid Swishy team.",
+                  "Maybe when you're good enough you can join, amateur."
+                ]
+              },
+              {
+                "type": "set_flag",
+                "name": "football_1",
+                "value": true
+              }
+            ]
+          }
+        },
+        {
           "name": "Bully Ferd",
           "type": "option",
           "action": {
             "type": "multiple",
             "actions": [
               {
-                "type": "multiple",
-                "actions": [
-                  {
-                    "type": "talk_mult",
-                    "npc": "narrator",
-                    "lines": [
-                      "{player} starts taking things from Ferd's pockets.",
-                      "They found some change."
-                    ],
-                    "wait_for_input": true
-                  },
-                  {
-                    "type": "change_stats",
-                    "stat": "karma",
-                    "operation": "subtract",
-                    "amount": 15
-                  },
-                  {
-                    "type": "change_stats",
-                    "stat": "popularity",
-                    "operation": "add",
-                    "amount": 3
-                  }
-                ]
+                "type": "talk_mult",
+                "npc": "narrator",
+                "lines": [
+                  "{player} starts taking things from Ferd's pockets.",
+                  "They found some change."
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "subtract",
+                "amount": 15
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 3
               },
               {
                 "type": "talk_mult",

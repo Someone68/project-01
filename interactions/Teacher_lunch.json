@@ -21,9 +21,28 @@
           "name": "Sorry for what happened during class",
           "type": "option",
           "action": {
-            "type": "talk",
-            "text": "Hello {player}!",
-            "wait_for_input": true
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Oh, don't be.",
+                  "It's normal for the first class to be like this.",
+                  "Eventually, you'll get used to it.",
+                  "I've been teaching for several years, and it's normal.",
+                  "\"Just let them do whatever and you'll get your paycheck.\"",
+                  "--um, did I say anything just now?",
+                  "Just ignore it and have fun today okay?"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "set_memory",
+                "memory": {
+                  "talked_lunch": "true"
+                }
+              }
+            ]
           },
           "one_time": false,
           "end_menu": false,
@@ -33,9 +52,43 @@
           "name": "Small talk",
           "type": "option",
           "action": {
-            "type": "talk",
-            "text": "Hello {player}!",
-            "wait_for_input": true
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "...",
+                  "Yeah, I like reading.",
+                  "And uh... teaching?"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Though recently its driving me crazy--",
+                  "and I can't mange all these students--",
+                  "and I wish I could quit my job--",
+                  "but I cant because I have a family to feed--",
+                  "and--"
+                ],
+                "wait_for_input": false
+              },
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Huh? What?",
+                  "You didn't just hear anything now, did you?"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "set_memory",
+                "memory": {
+                  "talked_lunch": "true"
+                }
+              }
+            ]
           },
           "one_time": false,
           "end_menu": false,
@@ -45,9 +98,18 @@
           "name": "Sit in awkward silence and eat your lunch",
           "type": "option",
           "action": {
-            "type": "talk",
-            "text": "Hello {player}!",
-            "wait_for_input": true
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "..........................................................................",
+                  "..........................................................................",
+                  ".........................................................................."
+                ],
+                "wait_for_input": true
+              }
+            ]
           },
           "one_time": false,
           "end_menu": false,

@@ -1,0 +1,118 @@
+{
+  "default_npc": "elina",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": ["Who brought the new kid here? Scram."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "OMG, is that the new kid?",
+        "Ew, get away, you're like, not welcome here~"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "It seems that {player} is not welcome here.",
+        "{player} searches for a new spot."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "Sit with...",
+      "typeout": true,
+      "repeat": true,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Sit in the empty table",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "npc": "narrator",
+                "lines": ["{player} sits alone, eating lunch."],
+                "wait_for_input": true
+              },
+              {
+                "type": "condition",
+                "condition": {
+                  "type": "player_flag",
+                  "flag": "football_1",
+                  "value": true
+                },
+                "action": {
+                  "type": "multiple",
+                  "actions": [
+                    {
+                      "type": "talk_mult",
+                      "npc": "fjock",
+                      "lines": [
+                        "Hey, do you want to join my lunch table?",
+                        "Not that we need you, or anything.",
+                        "Just, uh, talking about football.",
+                        "My friends will, uh, laugh at you. Which is good."
+                      ],
+                      "wait_for_input": true
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Sit with {npc:fjock}'s football team",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "Hello {player}!",
+            "wait_for_input": true
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Sit with {npc:ms. finessa}",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "Hello {player}!",
+            "wait_for_input": true
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Sit with {npc:ferd} (he is alone)",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "Hello {player}!",
+            "wait_for_input": true
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    }
+  ]
+}
