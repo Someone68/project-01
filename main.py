@@ -21,7 +21,7 @@ from npcs import *
 in_interaction = False
 interaction_with = ""
 
-DEV_MODE = True
+DEV_MODE = False
 
 if (DEV_MODE):
     if (input("YOU ARE IN DEVELOPER MODE!\nThis mode is only for debugging purposes!\nPress enter if you want to continue in developer mode!\nTo return to \"verified\" mode, type 'v' and press enter! \n INIT> ").lower() == "v"):
@@ -78,7 +78,7 @@ def main():
 def info():
     cls()
     cprint("\n\nFISHTOPIA is a text-based adventure game. There are 4 main characters to talk to, each with their own stories that you can explore. Which path will you choose?\n\n")
-  
+
     cursor.hide()
     input("Press enter to continue . . . ")
     cursor.show()
@@ -95,7 +95,7 @@ def credits():
 
 while True:
     cls()
-    
+
     cprint(draw_box("Fishtopia", h_align="center", v_align="center"))
     print()
     cprint("TIP: Use arrow keys to move, and press enter to select.", "dark_grey")
@@ -112,4 +112,3 @@ while True:
         case 3:
             cls()
             sys.exit(1)
-    
