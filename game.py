@@ -1,3 +1,4 @@
+import random
 import sys
 import cutie
 import cursor
@@ -8,6 +9,8 @@ import re
 import glob
 from pprint import pprint
 from time import sleep
+import time
+import readchar
 from termcolor import colored, cprint
 from blessed import Terminal
 from npcs import register_npcs, INTERNAL_NPC_NAMES
@@ -24,6 +27,114 @@ class Player:
 
     def set_name(self, name):
         self.name = name.upper()
+        
+    def fb_offense_turn(self):
+        yds_to_goal = 50
+        downs = 4
+        
+        while (downs > 0 and yds_to_goal > 0):
+            cls_fancy()
+            print(colored("OFFENSE", "red", attrs=["bold"]) + colored(" SIDE", "cyan"))
+            print(colored(f"{downs:{7}}", "red", attrs=["bold"]) + colored(" DOWNS", "cyan"))
+            print(colored(f"{yds_to_goal:{7}}", "red", attrs=["bold"]) + colored(" YDS", "cyan"))
+            
+            gain = 0
+            cprint("Choose a play:", "magenta")
+            play = select_menu(["Running play", "Passing play"])
+            cls_fancy()
+            match play:
+                case 0:
+                    gain = random.randint(-2, 10)
+                    sleep(abs(gain // 2))
+                    if (gain < 0):
+                        cprint(f"TACKLED! | {gain} YDS!", "red")
+                        input ("Press enter to continue . . . ")
+                    elif (gain > 0):
+                        cprint(f"SUCCESS! | +{gain} YDS!", "green")
+                        input ("Press enter to continue . . . ")
+                    else:
+                        cprint(f"TACKLED! | NO GAIN", "red")
+                        input ("Press enter to continue . . . ")
+                case 1:
+                    cprint(f"PASSING PLAY | PRESS KEYS AS THEY APPEAR")
+                    sleep(2)
+                    cprint("Ready?")
+                    sleep(1)
+                    cprint("Get set...")
+                    sleep(1)
+                    cprint("Go!")
+                    seq_length = random.randint(3, 5)
+                    key_sequence = [random.choice("abcdefghijklmnopqrstuvwxyz") for _ in range(seq_length)]
+                    max_time_per_key = 1.5  # seconds per key
+
+                    for i, target in enumerate(key_sequence):
+                        cprint(f"\nPRESS '{target.upper()}' NOW!", random.choice(["red", "green", "blue", "yellow", "magenta", "cyan"]))
+                        start_time = time.time()
+                        key = readchar.readchar()
+                        reaction = time.time() - start_time
+                        
+                        gain = random.randint(10, 20)
+                        
+                        if key.lower() != target:
+                            cprint(f"INTERCEPTED! DEFENSE TAKES OVER!")
+                            return 0
+                        elif reaction > max_time_per_key:
+                            cprint(f"TOO SLOW! DEFENSE TAKES OVER!")
+                            return 0
+                        else:
+                            cprint(f"SUCCESS! +{gain} YDS!")
+                    
+            yds_to_goal -= gain
+            if (yds_to_goal <= 0):
+                cprint("TOUCHDOWN! | SCORED 7 PTS!", "cyan")
+                NPC.get("Fjock").talk(random.choice(["Damn! Nice job team!", "Let's go!!!", "Nice touchdown!"]))
+                cls_fancy()
+                return 7
+
+            if (gain <= 0):
+                cprint("NO PROGRESS ON PLAY!", "red")
+            
+            downs -= 1
+            time.sleep(1)
+
+        cprint("FAILED TO SCORE! NO POINTS GAINED!", "red")
+        
+        NPC.get("Fjock").talk(random.choice(["Damn, we'll get 'em next time.", "Damn it! We didn't get to score!"]))
+        cls_fancy()
+    
+    def football_minigame(self): # hell yeah
+        cprint("Ready?", "red")
+        match select_menu(["Let's Rock!", "how to play football!1?!!"]):
+            case 1:
+                cls_fancy()
+                NPC.get("Nass").talk("...You don't know how to play football?")
+                cls_fancy()
+                NPC.get("Nass").talk("I have a feeling that you failed your PE class.")
+                cls_fancy()
+                NPC.get("Nass").talk("...Fine. I'll tell you how to play.")
+                cls_fancy()
+                NPC.get("Nass").talk("There are two sides, attack and defense.")
+                cls_fancy()
+                NPC.get("Nass").talk("On the attacking side...")
+                cls_fancy()
+                NPC.get("Nass").talk("Kick the ball, pass, and run toward the opponent's goal.")
+                cls_fancy()
+                NPC.get("Nass").talk("Score by getting the ball into their net.")
+                cls_fancy()
+                NPC.get("Nass").talk("On the defense side...")
+                cls_fancy()
+                NPC.get("Nass").talk("Defend your own goal from their attacks")
+                cls_fancy()
+                NPC.get("Nass").talk("More goals = win.")
+                cls_fancy()
+                NPC.get("Nass").talk("On offense, you have 4 downs (tries) to make a goal.")
+                cls_fancy()
+                NPC.get("Nass").talk("Good luck, stupid.")
+                cls_fancy()
+        
+        print(self.fb_offense_turn())
+        input()
+        
 
 player = Player("error")
 
@@ -710,7 +821,7 @@ def dev_mode():
     cls_fancy()
     cprint("DEVELOPER TOOLS", "yellow")
     cprint("SELECT AN OPTION")
-    option = select_menu(["run interaction", "view player object", "edit stats", "continue", "quit"])
+    option = select_menu(["run interaction", "view player object", "edit stats", "football minigame :3", "continue", "quit"])
 
     cls_fancy()
     cprint("DEVELOPER TOOLS", "yellow")
@@ -762,9 +873,14 @@ def dev_mode():
                     input("name set. enter to continue")
                 case 4:
                     pass
+        
         case 3:
-            to_continue = True
+            player.football_minigame()
+            input ("enter to continue . . .  ")
+
         case 4:
+            to_continue = True
+        case 5:
             sys.exit(1)
 
     if (not to_continue): dev_mode()

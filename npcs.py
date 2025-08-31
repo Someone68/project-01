@@ -11,13 +11,13 @@ def get_npcs():
 
   return [
       Npc("narrator", "", None),
-      Npc("FJock", "Tuff-Looking Kid", "yellow"),
+      Npc("Fjock", "Tuff-Looking Kid", "yellow"),
       Npc("Ms. Finessa", "Teacher", "magenta"),
       Npc("Ferd", "Nerdy-Looking Kid", "green"),
       Npc("Elina", "Popular Girl", "blue"),
       Npc("Classmate", "", "white"),
       Npc("Fern","Ferd's Crush","cyan"),
-      Npc("Nass","Judge","red")
+      Npc("Nass","???","red")
   ]
 
 def register_npcs(registry):
