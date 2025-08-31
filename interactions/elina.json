@@ -37,7 +37,7 @@
                 ],
                 "wait_for_input": true
               },
-              "one_time": false,
+              "one_time": true,
               "end_menu": false,
               "stop_finish_code": false
             },
@@ -54,7 +54,7 @@
                 ],
                 "wait_for_input": true
               },
-              "one_time": false,
+              "one_time": true,
               "end_menu": true,
               "stop_finish_code": false
             }

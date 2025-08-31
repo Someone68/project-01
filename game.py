@@ -178,12 +178,11 @@ def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def cls_fancy():
-  cls()
-  if (player):
-    cprint(f"KARMA: {player.karma} / 100", "light_red", attrs=["bold"])
-    cprint(f"POPULARITY: {player.popularity} / 100", "light_blue", attrs=["bold"])
-  if (player.interaction_status):
-    cprint(f"-- Interaction with {player.interaction_with} ---------", color="light_green")
+    cls()
+    if (player):
+        cprint(f"KARMA: {player.karma} / 100", "light_red", attrs=["bold"])
+        cprint(f"POPULARITY: {player.popularity} / 100", "light_blue", attrs=["bold"])
+        print()
 
 def dialogue(text,
     width=30,
@@ -471,6 +470,9 @@ class Interaction:
             expected = cond.get("value", None)
             if expected is None:
                 return flag in self.player.flags
+            if (expected is False):
+                if (not flag in self.player.flags):
+                    return True
             return self.player.flags.get(flag) == expected
 
         elif ctype == "boolean":
@@ -492,6 +494,7 @@ class Interaction:
           cls()
           cprint(f"KARMA: {self.player.karma} / 100", "light_red", attrs=["bold"])
           cprint(f"POPULARITY: {self.player.popularity} / 100", "light_blue", attrs=["bold"])
+          print("")
 
         if action_type == "talk":
             npc = self.npc_registry.get(action.get("npc")) if action.get("npc") else self.default_npc
@@ -705,12 +708,12 @@ class Interaction:
 def dev_mode():
     to_continue = False
     cls_fancy()
-    cprint("DEV MODE", "yellow")
+    cprint("DEVELOPER TOOLS", "yellow")
+    cprint("SELECT AN OPTION")
     option = select_menu(["run interaction", "view player object", "edit stats", "continue", "quit"])
 
     cls_fancy()
-    cprint("DEVELOPER MODE", "yellow")
-    cprint("select an option below: ", "yellow")
+    cprint("DEVELOPER TOOLS", "yellow")
     match(option):
         case 0:   
             cprint("RUN INTERACTION", "yellow")

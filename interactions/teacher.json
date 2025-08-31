@@ -8,6 +8,7 @@
     },
     {
       "type": "set_memory",
+      "npc": "Ms. Finessa",
       "memory": {
         "name_unlocked": "true"
       }
@@ -356,7 +357,7 @@
               },
               {
                 "type": "show_dialogue",
-                "text": "{npc: Ms. Finessa} is confused.",
+                "text": "{npc:Ms. Finessa} is confused.",
                 "wait_for_input": true
               },
               {

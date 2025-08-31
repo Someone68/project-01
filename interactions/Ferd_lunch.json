@@ -1,0 +1,155 @@
+{
+  "default_npc": "narrator",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "npc": "Ferd",
+      "lines": ["O-oh! You chose to sit with me? nobody ever sits with me."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Ferd gestures for {player} to look around...",
+        "the table is completely empty."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "Talk to Ferd",
+      "color": "light_green",
+      "typeout": true,
+      "repeat": true,
+      "options_to_stop": 0,
+      "options": [
+        {
+          "name": "Talk about homework",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "npc": "Ferd",
+                "lines": [
+                  "Oh, yeah! I think homework is great!",
+                  "It's a way for people to learn",
+                  "even in the confines of their own house!"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "set_flag",
+                "name": "ferd_hw",
+                "value": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 8
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "add",
+                "amount": 5
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Give an in-depth tutorial on dumpster diving",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "npc": "Ferd",
+                "lines": [
+                  "W-wow that sounds really fun!",
+                  "Even if it is a bit... dirty."
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Ferd laughs.",
+                  "His stutter slips away for a second."
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "add",
+                "amount": 10
+              },
+              {
+                "type": "set_flag",
+                "name": "ferd_nostutter",
+                "value": true
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Bully him",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk",
+                "npc": "Ferd",
+                "text": "Wha- if you just came here to bully me then get out of here!",
+                "wait_for_input": true
+              },
+              {
+                "type": "comment",
+                "text": ""
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": true
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["Fjock lumbers over...", "He looks between {player} and Ferd."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Fjock",
+      "lines": ["C'mon, you chose to sit with THIS nerd?"],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["Ferd braces for a beating."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["Fjock gives him a strange look and leaves."],
+      "wait_for_input": true
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "default_npc": "narrator",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": ["The bell rings once more,", "signaling the end of lunch."],
+      "wait_for_input": true
+    },
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "ferd_nostutter"
+      },
+      "action": {
+        "type": "talk_mult",
+        "npc": "Ferd",
+        "lines": [
+          "Hey, {player} can i talk to you after class?",
+          "I have something I want tell you."
+        ],
+        "wait_for_input": true
+      }
+    },
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "football_1"
+      },
+      "action": {
+        "type": "talk",
+        "npc": "Fjock",
+        "text": "Hey, {player}. If you ever need someone to sit with, I'm your guy.",
+        "wait_for_input": true
+      }
+    },
+    {
+      "type": "comment",
+      "text": "please add teacher flag functionality (fi_asked_teacher)"
+    },
+    {
+      "type": "comment",
+      "text": "please add Elina flag functionality (f1_elina)"
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["Everyone heads back to class."],
+      "wait_for_input": true
+    }
+  ]
+}

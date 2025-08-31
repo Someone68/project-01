@@ -1,0 +1,117 @@
+{
+  "default_npc": "fjock",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "npc": "fjock",
+      "lines": [
+        "Hey uh...",
+        "What's your name again?",
+        "Yes, I'm talking to you."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "It's {player}",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "npc": "fjock",
+                "lines": [
+                  "Oh, well, uh, {player}, wanna stop by the football field?",
+                  "It's the perfect weather...",
+                  "--TO LEAVE THE SWISHY SWIMMERS!",
+                  "And if you're good enough... join the Shimmering Sharks!"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "npc": "classmate",
+                "lines": [
+                  "Hey, I thought we gave up on this guy?",
+                  "What? He's gonna join us at practice today?",
+                  "Yo hey, you! You're cooked! We've been playing for years!"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "npc": "fjock",
+                "lines": [
+                  "Don't mind him, kid.",
+                  "We'll go hard on you. You're cooked!"
+                ],
+                "wait_for_input": true
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "I don't know",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Uh... how do you forget your own name???",
+                  "I think during class, you said something like...",
+                  "{player}, right?",
+                  "Wait...",
+                  "YOU JUST SAID IT 2 HOURS AGO SO HOW DID YOU FORGET???",
+                  "Ugh, whatever.",
+                  "Wanna join us at the football field before you head home?",
+                  "It's the perfect weather.",
+                  "It's a beautiful day outside.",
+                  "Birds are singing...",
+                  "Flowers are blooming...",
+                  "On days like this, kids like you..."
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "run_code",
+                "code": "cls()\nsleep(0.6)\ncls_fancy()"
+              },
+              {
+                "type": "talk_mult",
+                "lines": ["...should be burning in hel-"],
+                "wait_for_input": false
+              },
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "...should be LEAVING THE SWISHY SWIMMERS!",
+                  "and if you're good enough...",
+                  "Join the Shimmering Sharks!"
+                ],
+                "wait_for_input": true
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    }
+  ]
+}

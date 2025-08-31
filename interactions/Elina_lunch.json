@@ -8,6 +8,7 @@
     },
     {
       "type": "talk_mult",
+      "npc": "classmate",
       "lines": [
         "OMG, is that the new kid?",
         "Ew, get away, you're like, not welcome here~"
@@ -62,6 +63,42 @@
                         "My friends will, uh, laugh at you. Which is good."
                       ],
                       "wait_for_input": true
+                    },
+                    {
+                      "type": "select_menu",
+                      "typeout": true,
+                      "repeat": false,
+                      "options_to_stop": 1,
+                      "options": [
+                        {
+                          "name": "Join him",
+                          "type": "option",
+                          "action": {
+                            "type": "play_interaction",
+                            "interaction": "fjock_lunch"
+                          },
+                          "one_time": false,
+                          "end_menu": false,
+                          "stop_finish_code": false
+                        },
+                        {
+                          "name": "Sit alone",
+                          "type": "option",
+                          "action": {
+                            "type": "talk_mult",
+                            "npc": "narrator",
+                            "lines": ["{player} decides to sit alone."],
+                            "wait_for_input": true
+                          },
+                          "one_time": false,
+                          "end_menu": false,
+                          "stop_finish_code": false
+                        }
+                      ],
+                      "finish_action": {
+                        "type": "comment",
+                        "text": "(menu finished)"
+                      }
                     }
                   ]
                 }
@@ -76,9 +113,8 @@
           "name": "Sit with {npc:fjock}'s football team",
           "type": "option",
           "action": {
-            "type": "talk",
-            "text": "Hello {player}!",
-            "wait_for_input": true
+            "type": "play_interaction",
+            "interaction": "fjock_lunch"
           },
           "one_time": true,
           "end_menu": false,
@@ -88,9 +124,8 @@
           "name": "Sit with {npc:ms. finessa}",
           "type": "option",
           "action": {
-            "type": "talk",
-            "text": "Hello {player}!",
-            "wait_for_input": true
+            "type": "play_interaction",
+            "interaction": "teacher_lunch"
           },
           "one_time": true,
           "end_menu": false,
@@ -100,9 +135,8 @@
           "name": "Sit with {npc:ferd} (he is alone)",
           "type": "option",
           "action": {
-            "type": "talk",
-            "text": "Hello {player}!",
-            "wait_for_input": true
+            "type": "play_interaction",
+            "interaction": "ferd_lunch"
           },
           "one_time": true,
           "end_menu": false,

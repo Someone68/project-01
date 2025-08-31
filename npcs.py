@@ -16,6 +16,8 @@ def get_npcs():
       Npc("Ferd", "Nerdy-Looking Kid", "green"),
       Npc("Elina", "Popular Girl", "blue"),
       Npc("Classmate", "", "white"),
+      Npc("Fern","Ferd's Crush","cyan"),
+      Npc("Nass","Judge","red")
   ]
 
 def register_npcs(registry):

@@ -1,0 +1,82 @@
+{
+  "default_npc": "fjock",
+  "actions": [
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "football_1",
+        "value": true
+      },
+      "action": {
+        "type": "multiple",
+        "actions": [
+          {
+            "type": "talk_mult",
+            "lines": [
+              "Heh, look who decided to join us.",
+              "They said they're good at football, but I'm not convinced."
+            ],
+            "wait_for_input": true
+          },
+          {
+            "type": "talk_mult",
+            "npc": "classmate",
+            "lines": [
+              "Come to the football field after school, twerp.",
+              "We'll see if you belong in the Shimmering Sharks."
+            ],
+            "wait_for_input": true
+          },
+          {
+            "type": "talk_mult",
+            "lines": ["They play for the Swishy Swimmers."],
+            "wait_for_input": true
+          },
+          {
+            "type": "talk_mult",
+            "npc": "classmate",
+            "lines": [
+              "HAHAHHA!! That's a joke, right?",
+              "Isn't that the baby team? Good luck playing with us.",
+              "Because there's NO WAY you're beating us!"
+            ],
+            "wait_for_input": true
+          },
+          {
+            "type": "set_flag",
+            "name": "football_2",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "football_1",
+        "value": false
+      },
+      "action": {
+        "type": "multiple",
+        "actions": [
+          {
+            "type": "talk_mult",
+            "lines": [
+              "Who said you could sit here?",
+              "Mind your own business, milkshake."
+            ],
+            "wait_for_input": true
+          },
+          {
+            "type": "talk_mult",
+            "npc": "narrator",
+            "lines": ["{player}, being lonely, decides to sit alone."],
+            "wait_for_input": true
+          }
+        ]
+      }
+    }
+  ]
+}

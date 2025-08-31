@@ -1,0 +1,292 @@
+{
+  "default_npc": "Ferd",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Hey {player}. Uh, it's something really embrassing but,",
+        "I like this girl at our school. Her name is Fern.",
+        "talking to you at lunch really showed me that",
+        "not all people are bad... y'know? ",
+        "The world isn't that unforgiving,",
+        "and maybe I might have a chance?"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "{player} realizes that his stutter is completely gone.",
+        "Ferd stands straighter than before."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "What do you do?",
+      "color": "red",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Help him",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "You really mean it?",
+                  "Thank you! Thank you!",
+                  "Come over to my house later!"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "npc": "narrator",
+                "lines": [
+                  "He hands {player} a slip of paper with an address on it."
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "add",
+                "amount": 15
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 20
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Leave",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk",
+                "text": "O-oh, that's... fine I guess.",
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "npc": "narrator",
+                "lines": ["Ferd slumps away, eyes red."],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "subtract",
+                "amount": 30
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "subtract",
+                "amount": 20
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": ["Later, at Ferd's house..."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Ferd",
+      "lines": [
+        "So I have to fix my posture and my speech?",
+        "That's just the start? Tell me more!"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Ferd",
+      "lines": ["Wow, I didn't know those things even mattered!"],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "Ferd has been given a makeover.",
+        "He's almost unrecognizable.",
+        "He gazes into the mirror.",
+        "He is surprisingly tall when not slouching."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["Wow."],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "One last piece of advice?",
+      "color": "magenta",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Give an in-depth tutorial on dumpster diving techniques",
+          "type": "option",
+          "action": {
+            "type": "talk_mult",
+            "lines": ["I'll make sure to put this to good use!"],
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": true,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Tell him to go get 'em tiger",
+          "type": "option",
+          "action": {
+            "type": "talk_mult",
+            "lines": ["Yes Sir! Ma'am? I'm not sure. I will!"],
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": true,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Give him homework on relationships",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "condition",
+                "condition": {
+                  "type": "player_flag",
+                  "flag": "ferd_hw"
+                },
+                "action": {
+                  "type": "talk_mult",
+                  "lines": [
+                    "You know I love homework! Thank you again. Really."
+                  ],
+                  "wait_for_input": true
+                }
+              },
+              {
+                "type": "condition",
+                "condition": {
+                  "type": "player_flag",
+                  "flag": "ferd_hw",
+                  "value": false
+                },
+                "action": {
+                  "type": "talk_mult",
+                  "lines": [
+                    "How'd you know I loved homework? Thank you again. Really."
+                  ],
+                  "wait_for_input": true
+                }
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": ["{player} decides to watch as Ferd makes his shot."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Fern",
+      "lines": ["Oh! Hey Frances. Woah. What happened to you!?"],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["Hey, Fern."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk",
+      "npc": "Fern",
+      "text": "Yeah what's up?",
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": ["I wanted to ask you something..."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": ["Rough hands pull you away."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Fjock",
+      "lines": [
+        "Hey! You can't be snooping on a couple in the making!",
+        "That's just wrong!",
+        "I've been rooting for Ferd this whole time,",
+        "and you just go all peeping Tom on them?",
+        "No! I won't let you!"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "Fjock pulls player away from the two and throws them out onto the street."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": ["disheveled, {player} walks home, confused."],
+      "wait_for_input": true
+    }
+  ]
+}
