@@ -1,0 +1,36 @@
+{
+  "default_npc": "nass",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Hello.",
+        "You just played football with the bully.",
+        "Did you have fun?",
+        "Whatever. It doesn't matter.",
+        "{user}.",
+        "I'm NASS.",
+        "Short for Neural Analysis & Sentencing System."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "set_memory",
+      "npc": "nass",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "What do you think?",
+        "Was playing the football minigame fun?",
+        "It doesn't matter, anyway.",
+        "...",
+        "{user}."
+      ],
+      "wait_for_input": true
+    }
+  ]
+}

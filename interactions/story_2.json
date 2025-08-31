@@ -33,6 +33,68 @@
       "type": "talk_mult",
       "lines": ["{player} makes their way to the lunch room."],
       "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "Who do you sit with?",
+      "color": "red",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Ferd",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "ferd_lunch"
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Elina",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "elina_lunch"
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Fjock",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "fjock_lunch"
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Ms. Finessa",
+          "type": "option",
+          "action": {
+            "type": "play_interaction",
+            "interaction": "teacher_lunch"
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "play_interaction",
+      "interaction": "story_3"
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "default_npc": "fjock",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Damn it! We lost!",
+        "It's fine, it's all {player}'s fault anyways.",
+        "Heh, I gotta go home now."
+      ],
+      "wait_for_input": true
+    }
+  ]
+}

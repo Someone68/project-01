@@ -89,7 +89,9 @@
               },
               {
                 "type": "talk_mult",
-                "lines": ["...should be burning in hel-"],
+                "lines": [
+                  "...should be burning in hel"
+                ],
                 "wait_for_input": false
               },
               {
@@ -98,6 +100,24 @@
                   "...should be LEAVING THE SWISHY SWIMMERS!",
                   "and if you're good enough...",
                   "Join the Shimmering Sharks!"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "npc": "classmate",
+                "lines": [
+                  "Hey, I thought we gave up on this guy?",
+                  "What? He's gonna join us at practice today?",
+                  "Yo hey, you! You're cooked! We've been playing for years!"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Don't mind him, kid.",
+                  "We'll go hard on you. You're cooked!"
                 ],
                 "wait_for_input": true
               }
@@ -112,6 +132,54 @@
         "type": "comment",
         "text": "(menu finished)"
       }
+    },
+    {
+      "type": "talk_mult",
+      "npc": "fjock",
+      "lines": [
+        "We're gonna be practicing down in Fishy Fishner's Field of Ball.",
+        "Stop by if you want... {player}."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "{player} decides to join Fjock in his football practice session.",
+        "............................",
+        "{player} arrives at Fishy Fishner's Field of Ball."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Hey! {player}! Over here!"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "{player} goes to Fjock's team."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "You're late, {player}.",
+        "We're already playing matches.",
+        "Since everyone hates you, you're on my team.",
+        "So you better not mess up."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "run_code",
+      "code": "player.football_minigame()"
     }
   ]
 }

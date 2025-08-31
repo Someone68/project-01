@@ -1,0 +1,42 @@
+{
+  "default_npc": "Nass",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "npc": "Nass",
+      "lines": [
+        "{player}.",
+        "Talked to a variety of people.",
+        "Some tough, some popular, some nerdy."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "{user}.",
+        "My name is NASS.",
+        "Short for Neural Analysis & Sentencing System."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "set_memory",
+      "npc": "Nass",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "npc": "Nass",
+      "lines": [
+        "Based on your actions,",
+        "I'd say your first day went pretty well.",
+        "You talked to people, got to know them.",
+        "You have a bright future ahead of you."
+      ],
+      "wait_for_input": true
+    }
+  ]
+}

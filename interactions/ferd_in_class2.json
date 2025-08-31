@@ -287,6 +287,10 @@
       "npc": "narrator",
       "lines": ["disheveled, {player} walks home, confused."],
       "wait_for_input": true
+    },
+    {
+      "type": "play_interaction",
+      "interaction": "ending_5"
     }
   ]
 }

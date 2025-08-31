@@ -1,0 +1,246 @@
+{
+  "default_npc": "Ms. Finessa",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Oh, hey {player}!",
+        "What are you still here for? School ended a while ago."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "Why are you still here?",
+      "color": "light_green",
+      "typeout": true,
+      "repeat": true,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Question about the homework",
+          "type": "option",
+          "action": {
+            "type": "talk_mult",
+            "lines": ["What? There is no homework, silly."],
+            "wait_for_input": true
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Just wanted to talk",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "What? Talk? To me?",
+                  "Nobody ever asks me that!",
+                  "So, {player} what do you want to talk about?"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "change_stats",
+                "stat": "karma",
+                "operation": "add",
+                "amount": 10
+              },
+              {
+                "type": "change_stats",
+                "stat": "popularity",
+                "operation": "add",
+                "amount": 10
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": true,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "select_menu",
+      "title": "What do you want to talk about?",
+      "color": "light_green",
+      "typeout": true,
+      "repeat": true,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Dumpster diving",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Dumpster diving? You do that?",
+                  "Wow! What do you find?"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "select_menu",
+                "title": "What do you find?",
+                "color": "light_green",
+                "typeout": true,
+                "repeat": false,
+                "options_to_stop": 1,
+                "options": [
+                  {
+                    "name": "Iphones",
+                    "type": "option",
+                    "action": {
+                      "type": "talk",
+                      "text": "Wow. Then you must be really lucky.",
+                      "wait_for_input": true
+                    },
+                    "one_time": true,
+                    "end_menu": false,
+                    "stop_finish_code": false
+                  },
+                  {
+                    "name": "Babies",
+                    "type": "option",
+                    "action": {
+                      "type": "talk",
+                      "text": "Who leaves babies in dumpsters? That's strange.",
+                      "wait_for_input": true
+                    },
+                    "one_time": true,
+                    "end_menu": false,
+                    "stop_finish_code": false
+                  },
+                  {
+                    "name": "Garbage",
+                    "type": "option",
+                    "action": {
+                      "type": "talk",
+                      "text": "Well, it is to be expected. We can't all be winners.",
+                      "wait_for_input": true
+                    },
+                    "one_time": false,
+                    "end_menu": false,
+                    "stop_finish_code": false
+                  }
+                ],
+                "finish_action": {
+                  "type": "comment",
+                  "text": "(menu finished)"
+                }
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Kicking weights",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Uh, isn't that... Painful?",
+                  "I mean if you like that sort of stuff."
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "talk",
+                "text": "What I like to do is read what my husband wrote before our div",
+                "wait_for_input": false
+              },
+              {
+                "type": "talk",
+                "text": "Huh? What'd I just say? \"If you're into that sort of stuff?\"",
+                "wait_for_input": true
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Clouds",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk_mult",
+                "lines": [
+                  "Well I think clouds are the prettiest things in the world.",
+                  "It's so surreal to just stare at them in the sky,",
+                  "and see the depth and complexion of each little puff.",
+                  "What about you? Do you like cloud gazing?"
+                ],
+                "wait_for_input": true
+              },
+              {
+                "type": "select_menu",
+                "title": "...",
+                "color": "red",
+                "typeout": true,
+                "repeat": false,
+                "options_to_stop": 1,
+                "options": [
+                  {
+                    "name": "say you like forks",
+                    "type": "option",
+                    "action": {
+                      "type": "talk",
+                      "text": "What?",
+                      "wait_for_input": true
+                    },
+                    "one_time": false,
+                    "end_menu": true,
+                    "stop_finish_code": false
+                  }
+                ],
+                "finish_action": {
+                  "type": "comment",
+                  "text": "(menu finished)"
+                }
+              }
+            ]
+          },
+          "one_time": true,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Anyways, you really should get going now.",
+        "I'll see you tomorrow {player}."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "play_interaction",
+      "interaction": "ending_4"
+    }
+  ]
+}

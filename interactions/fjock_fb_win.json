@@ -1,0 +1,15 @@
+{
+  "default_npc": "fjock",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": [
+        "No way! We actually won!",
+        "Maybe you aren't so bad after all, {player}.",
+        "I'll send you a Shimmering Sharks invitation tomorrow.",
+        "But anyways, I gotta head home now."
+      ],
+      "wait_for_input": true
+    }
+  ]
+}

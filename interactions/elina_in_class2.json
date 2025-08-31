@@ -1,0 +1,287 @@
+{
+  "default_npc": "Elina",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "Clumsily, {player} bumps into Elina, causing her to fall over."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Watch where you're going!",
+        "Ugh, I just got hit-and-ran by a pile of melted cheese.",
+        "Help me up."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "What do you do?",
+      "color": "cyan",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Help her up",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "Ow, my fins.",
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Leave her on the ground",
+          "type": "option",
+          "action": {
+            "type": "talk",
+            "text": "I'm telling my friends about this.",
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "What then? Spill it. ",
+        "why did you ram into the most popular girl in school?"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "What do you do?",
+      "color": "cyan",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Say you're lost",
+          "type": "option",
+          "action": {
+            "type": "talk_mult",
+            "lines": [
+              "What do you mean 'lost'?",
+              "How does someone get lost walking home from school?",
+              "Ugh, I'm late for my meet-up. Now I can't fix it.",
+              "I can never fix anything.",
+              "What's even the point of trying anymore?",
+              "What's the point of anything?"
+            ],
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        },
+        {
+          "name": "Say you have no where to go",
+          "type": "option",
+          "action": {
+            "type": "talk_mult",
+            "lines": [
+              "What does that mean? You homeless or something?",
+              "Well don't go blathering about it to me.",
+              "Ugh, I'm late for my meet-up. Now I can't fix it.",
+              "I can never fix anything.",
+              "What's even the point of trying anymore?",
+              "What's the point of anything?"
+            ],
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "select_menu",
+      "title": "...",
+      "color": "red",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "\"Why don't you try anyways?\"",
+          "type": "option",
+          "action": {
+            "type": "talk_mult",
+            "lines": [
+              "Nothing matters. I'm late, and the result will be the same either way. ",
+              "Our fish-heads can only ignore the inevitable realization,",
+              "that nothing has a point.",
+              "We're all ignorant.",
+              "Our ability to think gives us the ability to tear ourselves apart.",
+              "Simply with the electric particles in our brain.",
+              "The Fish mind -a gift, is what is ultimately going to drive us",
+              "to inevitable extinction."
+            ],
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": ["{player} stares into Elina's eyes."],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "We distract ourselves from the truth.",
+        "We keep ourselves busy with school and routines.",
+        "Only to ignore and hide from that truth.",
+        "But we will never escape that helplessness."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "title": "...",
+      "color": "red",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "\"You're wrong.\"",
+          "type": "option",
+          "action": {
+            "type": "multiple",
+            "actions": [
+              {
+                "type": "talk",
+                "text": "What?",
+                "wait_for_input": true
+              },
+              {
+                "type": "talk_mult",
+                "npc": "narrator",
+                "lines": [
+                  "\"You're the only one that's hiding.",
+                  "Behind that veil of deception that leads you",
+                  "to believe that life in all of its mundaneness is a curse.",
+                  "Not a gift.",
+                  "If nothing we do matters, that is what gives us freedom.",
+                  "Freedom to live unshackled by the burden of meaning.\""
+                ],
+                "wait_for_input": true
+              }
+            ]
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "But that means that there is no reason for anything.",
+        "And everything that we do",
+        "will lead to the same conclusion that we drew?"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "\"It is precisely because nothing matters",
+        "that you have no reason not to do those little things.",
+        "helping someone.",
+        "improving another's life.",
+        "Time spent living in meaninglessness",
+        "is not wasted.\""
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "This...",
+        "{player},",
+        "Thank you.",
+        "I'll catch that meeting. ",
+        "Speaking with you has given me",
+        "a new look on this meaningless life.",
+        "I'll tell my friends about this."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "change_stats",
+      "stat": "karma",
+      "operation": "add",
+      "amount": 20
+    },
+    {
+      "type": "change_stats",
+      "stat": "popularity",
+      "operation": "add",
+      "amount": 60
+    },
+    {
+      "type": "change_stats",
+      "stat": "karma",
+      "operation": "multiply",
+      "amount": 2
+    },
+    {
+      "type": "set_flag",
+      "name": "elina_final",
+      "value": true
+    },
+    {
+      "type": "talk_mult",
+      "npc": "narrator",
+      "lines": [
+        "As you walk home, you see something unusual.",
+        "A figure in the distance.",
+        "Staring at you."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "play_interaction",
+      "interaction": "ending_2"
+    }
+  ]
+}

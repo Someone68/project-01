@@ -1,0 +1,49 @@
+{
+  "default_npc": "Nass",
+  "actions": [
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "f1_elina"
+      },
+      "action": {
+        "type": "condition",
+        "condition": {
+          "type": "player_flag",
+          "flag": "fi_asked_teacher"
+        },
+        "action": {
+          "type": "condition",
+          "condition": {
+            "type": "player_flag",
+            "flag": "football_1"
+          },
+          "action": {
+            "type": "condition",
+            "condition": {
+              "type": "player_flag",
+              "flag": "ferd_nostutter"
+            },
+            "action": {
+              "type": "play_interaction",
+              "interaction": "ending_1"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "elina_final",
+        "value": true
+      },
+      "action": {
+        "type": "play_interaction",
+        "interaction": "ending_3"
+      }
+    }
+  ]
+}

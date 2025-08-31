@@ -47,6 +47,10 @@
       "type": "talk_mult",
       "lines": ["Everyone heads back to class."],
       "wait_for_input": true
+    },
+    {
+      "type": "play_interaction",
+      "interaction": "story_4"
     }
   ]
 }

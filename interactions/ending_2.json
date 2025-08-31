@@ -1,0 +1,33 @@
+{
+  "default_npc": "Nass",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Hello.",
+        "{player} had a long conversation with someone.",
+        "{user}.",
+        "I'm NASS.",
+        "Short for Neural Analysis & Sentencing System."
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "set_memory",
+      "npc": "nass",
+      "memory": {
+        "name_unlocked": "true"
+      }
+    },
+    {
+      "type": "talk_mult",
+      "lines": [
+        "What do you think?",
+        "What did you learn from that conversation?",
+        "'Nothing' is fine.",
+        "As long as your karma goes up, am I right?"
+      ],
+      "wait_for_input": true
+    }
+  ]
+}

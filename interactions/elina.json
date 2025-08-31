@@ -24,7 +24,7 @@
           "title": "Who are you?",
           "typeout": false,
           "repeat": true,
-          "options_to_stop": 1,
+          "options_to_stop": 0,
           "options": [
             {
               "name": "Tell her you're new here",

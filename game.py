@@ -7,6 +7,7 @@ import textwrap
 import json
 import re
 import glob
+import getpass
 from pprint import pprint
 from time import sleep
 import time
@@ -27,6 +28,54 @@ class Player:
 
     def set_name(self, name):
         self.name = name.upper()
+
+    def fb_defense_turn(self):
+        yds_to_goal = 50
+        downs = 4
+
+        while (downs > 0 and yds_to_goal > 0):
+            cls_fancy()
+            print(colored("DEFENSE", "blue", attrs=["bold"]) + colored(" SIDE", "cyan"))
+            print(colored(f"{downs:{7}}", "red", attrs=["bold"]) + colored(" DOWNS", "cyan"))
+            print(colored(f"{yds_to_goal:{7}}", "red", attrs=["bold"]) + colored(" YDS", "cyan"))
+            
+            offense_choice = random.choice(["run", "pass"])
+            base_gain = random.randint(5, 15) if offense_choice == "run" else random.randint(8, 20)
+
+            print(f"OFFENSE is about to {offense_choice.upper()}!")
+            time.sleep(random.uniform(0.5, 1.5))
+            target_letter = random.choice("abcdefghijklmnopqrstuvwxyz")
+            print(f"PRESS '{target_letter.upper()}' NOW!")
+            start = time.time()
+            key = readchar.readchar()
+            reaction = time.time() - start
+
+            if key.lower() == target_letter and reaction < 0.8:
+                if reaction < 0.4:
+                    print("PERFECT! PLAY STUFFED!")
+                    gain = random.randint(-5, 0)
+                else:
+                    print("GREAT! MINIMAL GAIN!")
+                    gain = random.randint(0, 5)
+            else:
+                print("MISS! LARGE GAIN!")
+                gain = base_gain
+            
+            yds_to_goal -= gain
+            cprint(f"OFFENSE gained {max(gain, 0)} YDS! YARDS TO GOAL: {max(yds_to_goal, 0)}")
+
+            if yards_to_goal <= 0:
+                cprint("OFFENSE scored a TOUCHDOWN! OFFENSE gets 7 PTS!\n")
+                NPC.get("Fjock").talk(random.choice(["GOD DAMNIT!!", "Damn! We can't let them get any more points!", "Team, we need to rework our strategies!"]))
+                return -TOUCHDOWN_POINTS
+            
+            downs -= 1
+            sleep(2)
+        
+        cprint("OFFENSE STOPPED SUCCESSFULLY!", "green")
+        NPC.get("Fjock").talk(random.choice(["LET'S GOO!!!", "Nice defense team!", "Good job team!"]))
+        cls()
+        return 0
         
     def fb_offense_turn(self):
         yds_to_goal = 50
@@ -45,6 +94,7 @@ class Player:
             match play:
                 case 0:
                     gain = random.randint(-2, 10)
+                    cprint("RUNNING PLAY IN PROGRESS...")
                     sleep(abs(gain // 2))
                     if (gain < 0):
                         cprint(f"TACKLED! | {gain} YDS!", "red")
@@ -57,12 +107,8 @@ class Player:
                         input ("Press enter to continue . . . ")
                 case 1:
                     cprint(f"PASSING PLAY | PRESS KEYS AS THEY APPEAR")
-                    sleep(2)
-                    cprint("Ready?")
-                    sleep(1)
-                    cprint("Get set...")
-                    sleep(1)
-                    cprint("Go!")
+                    cprint("Get ready...")
+                    sleep(random.randint(1, 3))
                     seq_length = random.randint(3, 5)
                     key_sequence = [random.choice("abcdefghijklmnopqrstuvwxyz") for _ in range(seq_length)]
                     max_time_per_key = 1.5  # seconds per key
@@ -101,6 +147,7 @@ class Player:
         
         NPC.get("Fjock").talk(random.choice(["Damn, we'll get 'em next time.", "Damn it! We didn't get to score!"]))
         cls_fancy()
+        return 0
     
     def football_minigame(self): # hell yeah
         cprint("Ready?", "red")
@@ -123,18 +170,72 @@ class Player:
                 cls_fancy()
                 NPC.get("Nass").talk("On the defense side...")
                 cls_fancy()
-                NPC.get("Nass").talk("Defend your own goal from their attacks")
+                NPC.get("Nass").talk("Defend your own goal from their attacks.")
                 cls_fancy()
-                NPC.get("Nass").talk("More goals = win.")
+                NPC.get("Nass").talk("More goals = more points, more points = win.")
                 cls_fancy()
                 NPC.get("Nass").talk("On offense, you have 4 downs (tries) to make a goal.")
                 cls_fancy()
-                NPC.get("Nass").talk("Good luck, stupid.")
+                NPC.get("Nass").talk("Good luck, obese couch potato player.")
                 cls_fancy()
         
-        print(self.fb_offense_turn())
-        input()
+        cls_fancy()
+        NPC.get("Fjock").talk("The game is 4 rounds long, we better win!")
+        cls_fancy()
+        NPC.get("Fjock").talk("We only need to score 14 points...")
+        cls_fancy()
+        NPC.get("Fjock").talk("...and each touchdown gives us 7!")
+        cls_fancy()
+        NPC.get("Fjock").talk("Ready?")
+        cls_fancy()
         
+        score = 0
+        for round_num in range(1, 5):
+            print(f"========== ROUND {round_num} ==========")
+            cprint("Your teeam is on offense! Get ready!", "yellow")
+            sleep(3)
+            score += self.fb_offense_turn()
+            if (score >= 14):
+                cls_fancy()
+                self.fb_win()
+                self.fb_finish()
+                return
+            cls_fancy()
+            cprint("Your team is now on defense! Get ready!", "yellow")
+            sleep(3)
+            cls_fancy()
+            score += self.fb_defense_turn()
+            if (score >= 14):
+                cls_fancy()
+                self.fb_win()
+                self.fb_finish()
+                return
+
+            if (score <= -14):
+                cls_fancy()
+                self.fb_lose()
+                self.fb_finish()
+                return
+
+        
+        if (score > 0):
+            self.fb_win()
+            self.fb_finish()
+        elif (score < 0):
+            self.fb_lose()
+            self.fb_finish()
+        elif (score > 0):
+            self.fb_tie()
+            self.fb_finish()
+        
+    def fb_win():
+        Interaction.play_file("./interactions/fjock_fb_win")
+    def fb_lose():
+        Interaction.play_file("./interactions/fjock_fb_lose")
+    def fb_tie():
+        Interaction.play_file("./interactions/fjock_fb_tie")
+    def fb_finish():
+        Interaction.play_file("./interactions/fjock_finish")
 
 player = Player("error")
 
@@ -558,6 +659,8 @@ class Interaction:
             tag = match.group(1)
             if tag == "player":
                 return self.player.name
+            if tag == "user":
+                return getpass.getuser()
             elif tag.startswith("npc:"):
                 npc_name = tag.split(":", 1)[1]
                 npc = self.npc_registry.get(npc_name)

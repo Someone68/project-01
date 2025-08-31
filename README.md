@@ -2,6 +2,8 @@
 
 ## USE PYTHON 3.12 OR NEWER!
 
+### IMPORTANT: RUN IN A LOCAL MACHINE FOR THE BEST EXPERIENCE
+
 The best way to run the project is to clone the repository and run it manually:
 
 ```bash

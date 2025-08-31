@@ -1,0 +1,54 @@
+{
+  "default_npc": "fjock",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Oh, and thanks for playing with us today.",
+        "I'm not actually that good at football...",
+        "But seeing you play, whether you were good or trash...",
+        "I don't know.",
+        "My team's never been nice to me.",
+        "They think I suck at football, which is kinda true.",
+        "When you joined, I was about to do the same to you.",
+        "But I didn't. I never wanted to be a bully.",
+        "Just, when other people \"bullied\" me...",
+        "It was easier to shift my hatred towards others.",
+        "You're pretty much the only \"friend\" that I know.",
+        "So... are you gonna bully me?"
+      ],
+      "wait_for_input": true
+    },
+    {
+      "type": "select_menu",
+      "typeout": true,
+      "repeat": false,
+      "options_to_stop": 1,
+      "options": [
+        {
+          "name": "Of course not",
+          "type": "option",
+          "action": {
+            "type": "talk_mult",
+            "lines": [
+              "Okay. Thank you. I have to go home.",
+              "My mom's waiting."
+            ],
+            "wait_for_input": true
+          },
+          "one_time": false,
+          "end_menu": false,
+          "stop_finish_code": false
+        }
+      ],
+      "finish_action": {
+        "type": "comment",
+        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "play_interaction",
+      "interaction": "ending_2"
+    }
+  ]
+}

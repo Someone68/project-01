@@ -6,181 +6,983 @@
       "text": "reminder this is AFTER class."
     },
     {
-      "type": "select_menu",
-      "title": "Who do you talk to?",
-      "color": "magenta",
-      "typeout": true,
-      "repeat": true,
-      "options_to_stop": 0,
-      "options": [
-        {
-          "name": "Elina",
-          "type": "option",
-          "action": {
-            "type": "multiple",
-            "actions": [
-              {
-                "type": "condition",
-                "condition": {
-                  "type": "player_flag",
-                  "flag": "f1_elina"
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "f1_elina",
+        "value": true
+      },
+      "action": {
+        "type": "select_menu",
+        "title": "Who do you talk to?",
+        "color": "magenta",
+        "typeout": true,
+        "repeat": true,
+        "options_to_stop": 0,
+        "options": [
+          {
+            "name": "Elina",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "f1_elina"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "elina_in_class2"
+                  }
                 },
-                "action": {
-                  "type": "play_interaction",
-                  "interaction": "elina_in_class2"
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "f1_elina",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Elina",
+                    "lines": [
+                      "Ugh, why are you even talking to me?",
+                      "Go home already, loser."
+                    ],
+                    "wait_for_input": true
+                  }
                 }
-              },
-              {
-                "type": "condition",
-                "condition": {
-                  "type": "player_flag",
-                  "flag": "f1_elina",
-                  "value": false
-                },
-                "action": {
-                  "type": "talk_mult",
-                  "npc": "Elina",
-                  "lines": [
-                    "Ugh, why are you even talking to me?",
-                    "Go home already, loser."
-                  ],
-                  "wait_for_input": true
-                }
-              }
-            ]
+              ]
+            },
+            "one_time": true,
+            "end_menu": true,
+            "stop_finish_code": false
           },
-          "one_time": true,
-          "end_menu": false,
-          "stop_finish_code": false
-        },
-        {
-          "name": "Ferd",
-          "type": "option",
-          "action": {
-            "type": "multiple",
-            "actions": [
-              {
-                "type": "condition",
-                "condition": {
-                  "type": "player_flag",
-                  "flag": "ferd_nostutter"
+          {
+            "name": "Ferd",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "ferd_nostutter"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "ferd_in_class2"
+                  }
                 },
-                "action": {
-                  "type": "play_interaction",
-                  "interaction": "ferd_in_class2"
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "ferd_nostutter",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Ferd",
+                    "lines": [
+                      "H-hey {player}...",
+                      "school's over so I'll be h-heading home."
+                    ],
+                    "wait_for_input": true
+                  }
                 }
-              },
-              {
-                "type": "condition",
-                "condition": {
-                  "type": "player_flag",
-                  "flag": "ferd_nostutter",
-                  "value": false
-                },
-                "action": {
-                  "type": "talk_mult",
-                  "npc": "Ferd",
-                  "lines": [
-                    "H-hey {player}...",
-                    "school's over so I'll be h-heading home."
-                  ],
-                  "wait_for_input": true
-                }
-              }
-            ]
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
           },
-          "one_time": true,
-          "end_menu": false,
-          "stop_finish_code": false
-        },
-        {
-          "name": "Fjock",
-          "type": "option",
-          "action": {
-            "type": "multiple",
-            "actions": [
-              {
-                "type": "condition",
-                "condition": {
-                  "type": "player_flag",
-                  "flag": "football_2"
+          {
+            "name": "Fjock",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "football_2"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "fjock_in_class2"
+                  }
                 },
-                "action": {
-                  "type": "play_interaction",
-                  "interaction": "fjock_in_class2"
-                }
-              },
-              {
-                "type": "comment",
-                "text": "YOU CAN DO FJOCK SIDE (for now its only football_1 change it later)"
-              },
-              {
-                "type": "condition",
-                "condition": {
-                  "type": "player_flag",
-                  "flag": "football_2",
-                  "value": false
+                {
+                  "type": "comment",
+                  "text": "YOU CAN DO FJOCK SIDE (for now its only football_1 change it later)"
                 },
-                "action": {
-                  "type": "talk_mult",
-                  "npc": "Fjock",
-                  "lines": [
-                    "What's up, twerp? I'm heading to the football field.",
-                    "You scurry on home now."
-                  ],
-                  "wait_for_input": true
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "football_2",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Fjock",
+                    "lines": [
+                      "What's up, twerp? I'm heading to the football field.",
+                      "You scurry on home now."
+                    ],
+                    "wait_for_input": true
+                  }
                 }
-              }
-            ]
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
           },
-          "one_time": true,
-          "end_menu": false,
-          "stop_finish_code": false
-        },
-        {
-          "name": "Ms. Finessa",
-          "type": "option",
-          "action": {
-            "type": "multiple",
-            "actions": [
-              {
-                "type": "condition",
-                "condition": {
-                  "type": "player_flag",
-                  "flag": "fi_asked_teacher"
+          {
+            "name": "Ms. Finessa",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "fi_asked_teacher"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "teacher_in_class2"
+                  }
                 },
-                "action": {
-                  "type": "play_interaction",
-                  "interaction": "teacher_in_class2"
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "fi_asked_teacher",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Ms. Finessa",
+                    "lines": [
+                      "What are you talking to me for?",
+                      "Class is over, you can hurry on home."
+                    ],
+                    "wait_for_input": true
+                  }
                 }
-              },
-              {
-                "type": "condition",
-                "condition": {
-                  "type": "player_flag",
-                  "flag": "fi_asked_teacher",
-                  "value": false
-                },
-                "action": {
-                  "type": "talk_mult",
-                  "npc": "Ms. Finessa",
-                  "lines": [
-                    "What are you talking to me for?",
-                    "Class is over, you can hurry on home."
-                  ],
-                  "wait_for_input": true
-                }
-              }
-            ]
-          },
-          "one_time": true,
-          "end_menu": false,
-          "stop_finish_code": false
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          }
+        ],
+        "finish_action": {
+          "type": "comment",
+          "text": "(menu finished)"
         }
-      ],
-      "finish_action": {
-        "type": "comment",
-        "text": "(menu finished)"
+      }
+    },
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "football_2",
+        "value": true
+      },
+      "action": {
+        "type": "select_menu",
+        "title": "Who do you talk to?",
+        "color": "magenta",
+        "typeout": true,
+        "repeat": true,
+        "options_to_stop": 0,
+        "options": [
+          {
+            "name": "Elina",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "f1_elina"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "elina_in_class2"
+                  }
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "f1_elina",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Elina",
+                    "lines": [
+                      "Ugh, why are you even talking to me?",
+                      "Go home already, loser."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          },
+          {
+            "name": "Ferd",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "ferd_nostutter"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "ferd_in_class2"
+                  }
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "ferd_nostutter",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Ferd",
+                    "lines": [
+                      "H-hey {player}...",
+                      "school's over so I'll be h-heading home."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          },
+          {
+            "name": "Fjock",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "football_2"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "fjock_in_class2"
+                  }
+                },
+                {
+                  "type": "comment",
+                  "text": "YOU CAN DO FJOCK SIDE (for now its only football_1 change it later)"
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "football_2",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Fjock",
+                    "lines": [
+                      "What's up, twerp? I'm heading to the football field.",
+                      "You scurry on home now."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": true,
+            "stop_finish_code": false
+          },
+          {
+            "name": "Ms. Finessa",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "fi_asked_teacher"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "teacher_in_class2"
+                  }
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "fi_asked_teacher",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Ms. Finessa",
+                    "lines": [
+                      "What are you talking to me for?",
+                      "Class is over, you can hurry on home."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          }
+        ],
+        "finish_action": {
+          "type": "comment",
+          "text": "(menu finished)"
+        }
+      }
+    },
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "fi_asked_teacher",
+        "value": true
+      },
+      "action": {
+        "type": "select_menu",
+        "title": "Who do you talk to?",
+        "color": "magenta",
+        "typeout": true,
+        "repeat": true,
+        "options_to_stop": 0,
+        "options": [
+          {
+            "name": "Elina",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "f1_elina"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "elina_in_class2"
+                  }
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "f1_elina",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Elina",
+                    "lines": [
+                      "Ugh, why are you even talking to me?",
+                      "Go home already, loser."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          },
+          {
+            "name": "Ferd",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "ferd_nostutter"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "ferd_in_class2"
+                  }
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "ferd_nostutter",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Ferd",
+                    "lines": [
+                      "H-hey {player}...",
+                      "school's over so I'll be h-heading home."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          },
+          {
+            "name": "Fjock",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "football_2"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "fjock_in_class2"
+                  }
+                },
+                {
+                  "type": "comment",
+                  "text": "YOU CAN DO FJOCK SIDE (for now its only football_1 change it later)"
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "football_2",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Fjock",
+                    "lines": [
+                      "What's up, twerp? I'm heading to the football field.",
+                      "You scurry on home now."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          },
+          {
+            "name": "Ms. Finessa",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "fi_asked_teacher"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "teacher_in_class2"
+                  }
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "fi_asked_teacher",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Ms. Finessa",
+                    "lines": [
+                      "What are you talking to me for?",
+                      "Class is over, you can hurry on home."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": true,
+            "stop_finish_code": false
+          }
+        ],
+        "finish_action": {
+          "type": "comment",
+          "text": "(menu finished)"
+        }
+      }
+    },
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "ferd_nostutter",
+        "value": true
+      },
+      "action": {
+        "type": "select_menu",
+        "title": "Who do you talk to?",
+        "color": "magenta",
+        "typeout": true,
+        "repeat": true,
+        "options_to_stop": 0,
+        "options": [
+          {
+            "name": "Elina",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "f1_elina"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "elina_in_class2"
+                  }
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "f1_elina",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Elina",
+                    "lines": [
+                      "Ugh, why are you even talking to me?",
+                      "Go home already, loser."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          },
+          {
+            "name": "Ferd",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "ferd_nostutter"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "ferd_in_class2"
+                  }
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "ferd_nostutter",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Ferd",
+                    "lines": [
+                      "H-hey {player}...",
+                      "school's over so I'll be h-heading home."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": true,
+            "stop_finish_code": false
+          },
+          {
+            "name": "Fjock",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "football_2"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "fjock_in_class2"
+                  }
+                },
+                {
+                  "type": "comment",
+                  "text": "YOU CAN DO FJOCK SIDE (for now its only football_1 change it later)"
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "football_2",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Fjock",
+                    "lines": [
+                      "What's up, twerp? I'm heading to the football field.",
+                      "You scurry on home now."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          },
+          {
+            "name": "Ms. Finessa",
+            "type": "option",
+            "action": {
+              "type": "multiple",
+              "actions": [
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "fi_asked_teacher"
+                  },
+                  "action": {
+                    "type": "play_interaction",
+                    "interaction": "teacher_in_class2"
+                  }
+                },
+                {
+                  "type": "condition",
+                  "condition": {
+                    "type": "player_flag",
+                    "flag": "fi_asked_teacher",
+                    "value": false
+                  },
+                  "action": {
+                    "type": "talk_mult",
+                    "npc": "Ms. Finessa",
+                    "lines": [
+                      "What are you talking to me for?",
+                      "Class is over, you can hurry on home."
+                    ],
+                    "wait_for_input": true
+                  }
+                }
+              ]
+            },
+            "one_time": true,
+            "end_menu": false,
+            "stop_finish_code": false
+          }
+        ],
+        "finish_action": {
+          "type": "comment",
+          "text": "(menu finished)"
+        }
+      }
+    },
+    {
+      "type": "condition",
+      "condition": {
+        "type": "player_flag",
+        "flag": "fi_asked_teacher",
+        "value": false
+      },
+      "action": {
+        "type": "condition",
+        "condition": {
+          "type": "player_flag",
+          "flag": "ferd_nostutter",
+          "value": false
+        },
+        "action": {
+          "type": "condition",
+          "condition": {
+            "type": "player_flag",
+            "flag": "football_2",
+            "value": false
+          },
+          "action": {
+            "type": "condition",
+            "condition": {
+              "type": "player_flag",
+              "flag": "f1_elina",
+              "value": false
+            },
+            "action": {
+              "type": "select_menu",
+              "title": "Who do you talk to?",
+              "color": "magenta",
+              "typeout": true,
+              "repeat": true,
+              "options_to_stop": 0,
+              "options": [
+                {
+                  "name": "Elina",
+                  "type": "option",
+                  "action": {
+                    "type": "multiple",
+                    "actions": [
+                      {
+                        "type": "condition",
+                        "condition": {
+                          "type": "player_flag",
+                          "flag": "f1_elina"
+                        },
+                        "action": {
+                          "type": "play_interaction",
+                          "interaction": "elina_in_class2"
+                        }
+                      },
+                      {
+                        "type": "condition",
+                        "condition": {
+                          "type": "player_flag",
+                          "flag": "f1_elina",
+                          "value": false
+                        },
+                        "action": {
+                          "type": "talk_mult",
+                          "npc": "Elina",
+                          "lines": [
+                            "Ugh, why are you even talking to me?",
+                            "Go home already, loser."
+                          ],
+                          "wait_for_input": true
+                        }
+                      }
+                    ]
+                  },
+                  "one_time": true,
+                  "end_menu": false,
+                  "stop_finish_code": false
+                },
+                {
+                  "name": "Ferd",
+                  "type": "option",
+                  "action": {
+                    "type": "multiple",
+                    "actions": [
+                      {
+                        "type": "condition",
+                        "condition": {
+                          "type": "player_flag",
+                          "flag": "ferd_nostutter"
+                        },
+                        "action": {
+                          "type": "play_interaction",
+                          "interaction": "ferd_in_class2"
+                        }
+                      },
+                      {
+                        "type": "condition",
+                        "condition": {
+                          "type": "player_flag",
+                          "flag": "ferd_nostutter",
+                          "value": false
+                        },
+                        "action": {
+                          "type": "talk_mult",
+                          "npc": "Ferd",
+                          "lines": [
+                            "H-hey {player}...",
+                            "school's over so I'll be h-heading home."
+                          ],
+                          "wait_for_input": true
+                        }
+                      }
+                    ]
+                  },
+                  "one_time": true,
+                  "end_menu": false,
+                  "stop_finish_code": false
+                },
+                {
+                  "name": "Fjock",
+                  "type": "option",
+                  "action": {
+                    "type": "multiple",
+                    "actions": [
+                      {
+                        "type": "condition",
+                        "condition": {
+                          "type": "player_flag",
+                          "flag": "football_2"
+                        },
+                        "action": {
+                          "type": "play_interaction",
+                          "interaction": "fjock_in_class2"
+                        }
+                      },
+                      {
+                        "type": "comment",
+                        "text": "YOU CAN DO FJOCK SIDE (for now its only football_1 change it later)"
+                      },
+                      {
+                        "type": "condition",
+                        "condition": {
+                          "type": "player_flag",
+                          "flag": "football_2",
+                          "value": false
+                        },
+                        "action": {
+                          "type": "talk_mult",
+                          "npc": "Fjock",
+                          "lines": [
+                            "What's up, twerp? I'm heading to the football field.",
+                            "You scurry on home now."
+                          ],
+                          "wait_for_input": true
+                        }
+                      }
+                    ]
+                  },
+                  "one_time": true,
+                  "end_menu": false,
+                  "stop_finish_code": false
+                },
+                {
+                  "name": "Ms. Finessa",
+                  "type": "option",
+                  "action": {
+                    "type": "multiple",
+                    "actions": [
+                      {
+                        "type": "condition",
+                        "condition": {
+                          "type": "player_flag",
+                          "flag": "fi_asked_teacher"
+                        },
+                        "action": {
+                          "type": "play_interaction",
+                          "interaction": "teacher_in_class2"
+                        }
+                      },
+                      {
+                        "type": "condition",
+                        "condition": {
+                          "type": "player_flag",
+                          "flag": "fi_asked_teacher",
+                          "value": false
+                        },
+                        "action": {
+                          "type": "talk_mult",
+                          "npc": "Ms. Finessa",
+                          "lines": [
+                            "What are you talking to me for?",
+                            "Class is over, you can hurry on home."
+                          ],
+                          "wait_for_input": true
+                        }
+                      }
+                    ]
+                  },
+                  "one_time": true,
+                  "end_menu": false,
+                  "stop_finish_code": false
+                },
+                {
+                  "name": "Go Home",
+                  "type": "option",
+                  "action": {
+                    "type": "multiple",
+                    "actions": [
+                      {
+                        "type": "talk_mult",
+                        "npc": "narrator",
+                        "lines": [
+                          "{player} walks home alone.",
+                          "They see a mysterious figure approach them.",
+                          "The figure is not humanoid."
+                        ],
+                        "wait_for_input": true
+                      },
+                      {
+                        "type": "play_interaction",
+                        "interaction": "ending_1"
+                      }
+                    ]
+                  },
+                  "one_time": false,
+                  "end_menu": false,
+                  "stop_finish_code": false
+                }
+              ],
+              "finish_action": {
+                "type": "comment",
+                "text": "(menu finished)"
+              }
+            }
+          }
+        }
       }
     }
   ]

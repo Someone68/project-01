@@ -1,0 +1,16 @@
+{
+  "default_npc": "fjock",
+  "actions": [
+    {
+      "type": "talk_mult",
+      "lines": [
+        "Damn, its a tie!",
+        "You weren't to bad out there, {player}.",
+        "Maybe next time we play, if you win...",
+        "We'll send you an invitation to the Shimmering Sharks.",
+        "Anyways, I have to leave today. Bye!"
+      ],
+      "wait_for_input": true
+    }
+  ]
+}

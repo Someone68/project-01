@@ -70,6 +70,7 @@
             "actions": [
               {
                 "type": "talk_mult",
+                "npc": "Fjock",
                 "lines": [
                   "...",
                   "You play for the Swishy Swimmers?",
